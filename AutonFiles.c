@@ -1,0 +1,7 @@
+
+void auton()
+{
+	//autonomous code
+
+
+}

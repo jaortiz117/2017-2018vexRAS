@@ -25,6 +25,7 @@
 
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
+#include "AutonFiles.c"
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -67,6 +68,9 @@ task autonomous()
   // ..........................................................................
   // Insert user code here.
   // ..........................................................................
+
+	auton();
+
 
   // Remove this function call once you have "real" code.
   AutonomousCodePlaceholderForTesting();
