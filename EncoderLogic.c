@@ -16,12 +16,18 @@ Handles encoder sensor logic
 
 //init encoder values
 //similar to how instance vars are used
+int absolutoizquierdoatras;
+int absolutoderechoatras;
 
-void speedEqualize(float leftSpeed, float rightSpeed){
-	//used to attenuate for motor speed inequalities
-	//equalize motor speeds
-
+//getters
+int getAbsLeftBack(){
+	return absolutoizquierdoatras;
 }
+
+int getAbsRightFront(){
+	return absolutoderechoatras;
+}
+
 
 float getSpeed(int clicks){
 	//calculate a motor's speed
@@ -32,6 +38,20 @@ float getSpeed(int clicks){
 
 }
 
-void resetEncoders(){
-	//reset values to 0
+void speedEqualize(float leftSpeed, float rightSpeed){
+	//used to attenuate for motor speed inequalities
+	//equalize motor speeds
+
+}
+
+//RESETING ENCODERS
+void resetEncoders()
+{
+	nMotorEncoder[baseTopLeft] = 0;
+	nMotorEncoder[baseTopRight]= 0;
+
+
+	absolutoizquierdoatras = abs(nMotorEncoder[baseTopLeft]);
+	absolutoderechoatras  = abs(nMotorEncoder[baseTopRight]);
+
 }
