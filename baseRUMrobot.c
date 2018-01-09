@@ -1,11 +1,13 @@
+#pragma config(Sensor, dgtl10, MGLeft,         sensorDigitalOut)
+#pragma config(Sensor, dgtl11, MGRight,        sensorDigitalOut)
 #pragma config(Sensor, dgtl12, claw,           sensorDigitalOut)
 #pragma config(Motor,  port1,           baseTopLeft,   tmotorVex393HighSpeed_HBridge, openLoop, reversed, driveLeft)
 #pragma config(Motor,  port2,           baseTopRight,  tmotorVex393HighSpeed_MC29, openLoop, driveRight)
 #pragma config(Motor,  port3,           baseMidLeft,   tmotorVex393HighSpeed_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port4,           torreTLBL,     tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port5,           torreTRBR,     tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port6,           goalMech,      tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port7,           chainPivot,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           chainPivotR,   tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port7,           chainPivotL,   tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           baseMidRight,  tmotorVex393HighSpeed_MC29, openLoop, reversed, driveRight)
 #pragma config(Motor,  port9,           baseBottomLeft, tmotorVex393HighSpeed_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port10,          baseBottomRight, tmotorVex393HighSpeed_HBridge, openLoop, reversed, driveRight)
@@ -27,6 +29,232 @@
 #include "Vex_Competition_Includes.c"
 #include "AutonFiles.c"
 #include "EncoderLogic.c"
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////	 GLOBAL VARIABLES  	///////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+int absolutoizquierdoatras;
+int absolutoderechoatras;
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////	 FUNCTIONS  	/////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+/////////////////////////////////////////
+///////	RESETING ENCODERS	///////////////
+/////////////////////////////////////////
+
+void resetEncoders()
+{
+	nMotorEncoder[baseTopLeft] = 0;
+	nMotorEncoder[baseTopRight]= 0;
+
+
+	absolutoizquierdoatras = abs(nMotorEncoder[baseTopLeft]);
+	absolutoderechoatras  = abs(nMotorEncoder[baseTopRight]);
+
+}
+/////////////////////////////////////////
+///////	END RESETING ENCODERS	///////////
+/////////////////////////////////////////
+
+/////////////////////////////////////////
+//////////////  FOWARD  /////////////////
+/////////////////////////////////////////
+
+void Foward(int forward)
+{
+	resetEncoders();
+
+	while((absolutoizquierdoatras<forward)&&(absolutoderechoatras<forward))
+	{
+			absolutoizquierdoatras = abs(nMotorEncoder[baseTopLeft]);
+			absolutoderechoatras  = abs(nMotorEncoder[baseTopRight]);
+
+		if(absolutoizquierdofrente > absolutoderechofrente)
+		{
+			motor[LeftFront] =-58;
+			motor[RightFront]=-60;
+			motor[LeftBack]  =-58;
+			motor[RightBack] =-60;
+		}
+  	else if(absolutoderechofrente < absolutoizquierdofrente)
+		{
+			motor[LeftFront] =-60;
+			motor[RightFront]=-58;
+			motor[LeftBack]  =-60;
+			motor[RightBack] =-58;
+		}
+		else if(absolutoizquierdofrente==absolutoderechofrente)
+		{
+			motor[LeftFront] =-60;
+			motor[RightFront]=-60;
+			motor[LeftBack]  =-60;
+			motor[RightBack] =-60;
+		}
+	}
+	motor[LeftFront] =0;
+	motor[RightFront]=0;
+	motor[LeftBack]  =0;
+	motor[RightBack] =0;
+}
+/////////////////////////////////////////
+///////////  END FOWARD   ///////////////
+/////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////
+////////////  BACKWARD  /////////////////
+/////////////////////////////////////////
+
+void Backward(int backward)
+{
+	resetEncoders();
+
+	while((absolutoizquierdofrente<backward||absolutoizquierdoatras<backward)&&(absolutoderechofrente<backward||absolutoderechoatras<backward))
+	{
+		absolutoizquierdofrente = abs(nMotorEncoder[LeftFront]);
+		absolutoizquierdoatras  = abs(nMotorEncoder[LeftBack]);
+		absolutoderechoatras    = abs(nMotorEncoder[RightBack]);
+		absolutoderechofrente   = abs(nMotorEncoder[RightFront]);
+
+		if(absolutoizquierdofrente < absolutoderechofrente) // Derecho > Izquierdo
+		{
+			motor[LeftBack]  =50;
+			motor[LeftFront] =50;
+			motor[RightFront]=40;
+			motor[RightBack] =40;
+		}
+  	else if(absolutoderechofrente < absolutoizquierdofrente)// Izquierdo > Derecho
+		{
+			motor[LeftFront] =45;
+			motor[RightFront]=50;
+			motor[LeftBack]  =45;
+			motor[RightBack] =50;
+		}
+		else if(absolutoizquierdofrente==absolutoderechofrente)
+		{
+			motor[LeftFront] =50;
+			motor[RightFront]=45;
+			motor[LeftBack]  =50;
+			motor[RightBack] =45;
+		}
+	}
+
+
+}
+/////////////////////////////////////////
+///////////  END BACKWARD   /////////////
+/////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////
+//////////////  GRIGHT  /////////////////
+/////////////////////////////////////////
+
+void gRight(int gright)
+{
+	resetEncoders();
+
+	while((absolutoizquierdofrente<gright||absolutoizquierdoatras<gright)&&(absolutoderechofrente<gright||absolutoderechoatras<gright))
+	{
+		absolutoizquierdofrente = abs(nMotorEncoder[LeftFront]);
+		absolutoizquierdoatras  = abs(nMotorEncoder[LeftBack]);
+		absolutoderechoatras    = abs(nMotorEncoder[RightBack]);
+		absolutoderechofrente   = abs(nMotorEncoder[RightFront]);
+
+		if(absolutoizquierdofrente > absolutoderechofrente)
+		{
+			motor[LeftFront] =-58;
+			motor[RightFront]= 60;
+			motor[LeftBack]  =-58;
+			motor[RightBack] = 60;
+		}
+  	else if(absolutoderechofrente < absolutoizquierdofrente)
+		{
+			motor[LeftFront] =-60;
+			motor[RightFront]= 58;
+			motor[LeftBack]  =-60;
+			motor[RightBack] = 58;
+		}
+		else if(absolutoizquierdofrente==absolutoderechofrente)
+		{
+			motor[LeftFront] =-60;
+			motor[RightFront]= 60;
+			motor[LeftBack]  =-60;
+			motor[RightBack] = 60;
+		}
+	}
+	motor[LeftFront] =0;
+	motor[RightFront]=0;
+	motor[LeftBack]  =0;
+	motor[RightBack] =0;
+}
+/////////////////////////////////////////
+///////////  END GRIGHT   ///////////////
+/////////////////////////////////////////
+
+
+
+
+
+/////////////////////////////////////////
+//////////////  GLEFT  //////////////////
+/////////////////////////////////////////
+
+void gLeft(int gleft)
+{
+	resetEncoders();
+
+	while((absolutoizquierdofrente<gleft||absolutoizquierdoatras<gleft)&&(absolutoderechofrente<gleft||absolutoderechoatras<gleft))
+	{
+		absolutoizquierdofrente = abs(nMotorEncoder[LeftFront]);
+		absolutoizquierdoatras  = abs(nMotorEncoder[LeftBack]);
+		absolutoderechoatras    = abs(nMotorEncoder[RightBack]);
+		absolutoderechofrente   = abs(nMotorEncoder[RightFront]);
+
+		if(absolutoizquierdofrente > absolutoderechofrente)
+		{
+			motor[LeftFront] = 58;
+			motor[RightFront]=-60;
+			motor[LeftBack]  = 58;
+			motor[RightBack] =-60;
+		}
+  	else if(absolutoderechofrente < absolutoizquierdofrente)
+		{
+			motor[LeftFront] = 60;
+			motor[RightFront]=-58;
+			motor[LeftBack]  = 60;
+			motor[RightBack] =-58;
+		}
+		else if(absolutoizquierdofrente==absolutoderechofrente)
+		{
+			motor[LeftFront] = 60;
+			motor[RightFront]=-60;
+			motor[LeftBack]  = 60;
+			motor[RightBack] =-60;
+		}
+	}
+	motor[LeftFront] =0;
+	motor[RightFront]=0;
+	motor[LeftBack]  =0;
+	motor[RightBack] =0;
+}
+/////////////////////////////////////////
+///////////  END GLEFT   ////////////////
+/////////////////////////////////////////
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -70,9 +298,6 @@ task autonomous()
   // Insert user code here.
   // ..........................................................................
 
-	auton();
-
-
   // Remove this function call once you have "real" code.
   AutonomousCodePlaceholderForTesting();
 }
@@ -105,23 +330,43 @@ task usercontrol()
     // Remove this function call once you have "real" code.
     UserControlCodePlaceholderForTesting();
 
-    /************
-    motor[baseTopLeft]= vexRT[Ch3] + vexRT[Ch2];
-    motor[baseTopRight]= vexRT[Ch3] + vexRT[Ch2];
-    motor[baseMidLeft]= vexRT[Ch3] + vexRT[Ch2];
-    motor[baseMidRight]= vexRT[Ch3] + vexRT[Ch2];
-    motor[baseBottomLeft]= vexRT[Ch3] + vexRT[Ch2];
-    motor[baseBottomRight]= vexRT[Ch3] + vexRT[Ch2];
-    		*******************/
-    // ^^^^^^ change this to an arcade six motor class like in easy C
+  	//base
+    	motor[baseTopLeft]= vexRT[Ch3] + vexRT[Ch2];
+    	motor[baseTopRight]= vexRT[Ch3] + vexRT[Ch2];
+    	motor[baseBottomLeft]= vexRT[Ch3] + vexRT[Ch2];
+    	motor[baseBottomRight]= vexRT[Ch3] + vexRT[Ch2];
 
-    //base
-    arcadeControl(Ch3, Ch1);// didnt have to do anything found pre existing functions
+
+    //arcadeControl(Ch3, Ch1);// didnt have to do anything found pre existing functions
+
+    if(SensorValue(MGLeft) == 1 && SensorValue(MGRight) == 1){
+   		 motor[baseMidLeft]= vexRT[Ch3] + vexRT[Ch2];
+   		 motor[baseMidRight]= vexRT[Ch3] + vexRT[Ch2];
+   	}
+
+
+    //moving goal mech
+   	if(SensorValue(MGLeft) == 0 && SensorValue(MGRight) == 0){
+
+   		if(vexRT[Btn8R] == 1 && vexRT[Btn8L] == 0){
+   		 motor[baseMidLeft]= -127;
+   		 motor[baseMidRight]= -127;
+   		}
+
+
+   		if(vexRT[Btn8L] == 1 && vexRT[Btn8R] == 0){
+   		 motor[baseMidLeft]= 127;
+   		 motor[baseMidRight]= 127;
+   		}
+
+   		else {
+   			 motor[baseMidLeft]= 0;
+   			 motor[baseMidRight]= 0;
+   		}
+
+   	}
 
     //torre
-    //motor[torreTLBR] = vexRT[Btn5U] + vexRT[Btn5D];//I dont think its gonna work
-    //motor[torreTRBL] = vexRT[Btn5D] + vexRT[Btn5U];//probably mutliplying one by -1 or 127 will
-
     if((vexRT[Btn5U] == 1) && (vexRT[Btn5D] == 0)){
     	motor(torreTLBL)= 127;
     	motor(torreTRBR)= 127;
@@ -137,14 +382,20 @@ task usercontrol()
     	motor(torreTRBR)= 0;
     }
 
-    //moving goal mech
-    motor[goalMech] = vexRT[Btn8U] + vexRT[Btn8D];
 
     //chainBar pivot
-    motor[chainPivot] = vexRT[Btn7U] + vexRT[Btn7D];
-
-    //claw
     if(vexRT[Btn6U] == 1){
+    	motor(chainPivotL)= 127;
+    	motor(chainPivotR)= -127;
+    }
+    if(vexRT[Btn6D] {
+    	motor(chainPivotL)= -127;
+    	motor(chainPivotR)= 127;
+    }
+
+
+    //cone intake
+    if(vexRT[Btn8D] == 1){
     	SensorValue[claw] = 1;
     }
     else {
