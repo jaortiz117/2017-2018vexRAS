@@ -1,4 +1,4 @@
-
+#include "MotorAndSensorConfig.c"
 /****************************
 
 Handles encoder sensor logic
@@ -13,6 +13,9 @@ Handles encoder sensor logic
 //	//move base motors a certain amount of clicks
 
 //}
+#define leftEncoder dgtl1
+#define rightEncoder dgtl2
+
 
 //init encoder values
 //similar to how instance vars are used
@@ -34,8 +37,6 @@ float getSpeed(int clicks){
 	float speed;
 
 	return speed;
-
-
 }
 
 void speedEqualize(float leftSpeed, float rightSpeed){
@@ -47,9 +48,13 @@ void speedEqualize(float leftSpeed, float rightSpeed){
 //RESETING ENCODERS
 void resetEncoders()
 {
-	nMotorEncoder[baseTopLeft] = 0;
-	nMotorEncoder[baseTopRight]= 0;
+	//nMotorEncoder[baseTopLeft] = 0;
+	//nMotorEncoder[baseTopRight]= 0;
 
+	resetSensor(dgtl1);
+	resetSensor(dgtl2);
+
+	//other encoders must be added
 
 	absolutoizquierdoatras = abs(nMotorEncoder[baseTopLeft]);
 	absolutoderechoatras  = abs(nMotorEncoder[baseTopRight]);
