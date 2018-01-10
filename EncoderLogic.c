@@ -6,13 +6,6 @@ Handles encoder sensor logic
 ****************************/
 
 
-//must be moved to a different file
-//void moveFront(int clicks)
-//{
-
-//	//move base motors a certain amount of clicks
-
-//}
 #define LEFT_ENCODER dgtl1
 #define RIGHT_ENCODER dgtl2
 
