@@ -6,8 +6,8 @@ Handles encoder sensor logic
 ****************************/
 
 
-#define LEFT_ENCODER dgtl1
-#define RIGHT_ENCODER dgtl2
+//#define LEFT_ENCODER dgtl1
+//#define RIGHT_ENCODER dgtl3
 
 #define PI 3.14
 
@@ -21,11 +21,11 @@ int absLeft;
 int absRight;
 
 //getters
-int getAbsLeftBack(){
+int getAbsLeft(){
 	return absLeft;
 }
 
-int getAbsRightFront(){
+int getAbsRight(){
 	return absRight;
 }
 
@@ -65,8 +65,8 @@ void speedEqualize(float leftSpeed, float rightSpeed){
 //RESETTING ENCODERS
 void resetEncoders()
 {
-	resetSensor(LEFT_ENCODER);
-	resetSensor(RIGHT_ENCODER);
+	resetSensor(baseLeft);
+	resetSensor(baseRight);
 
 	//other encoders must be added
 
@@ -80,5 +80,5 @@ float tickConvertIN(int ticks){
 
 	float circ = WHEEL_DIAMETER_IN*PI;
 	float dist = circ*getRevs(ticks);
-	return dist
+	return dist;
 }
