@@ -34,8 +34,8 @@
 //	SensorValue[baseBottomRight] = 0;
 
 
-//	absolutoizquierdoatras = abs(SensorValue[baseBottomLeft]);
-//	absolutoderechoatras  = abs(SensorValue[baseBottomRight]);
+//	getAbsLeft() = abs(SensorValue[baseBottomLeft]);
+//	getAbsRight()  = abs(SensorValue[baseBottomRight]);
 
 //}
 /////////////////////////////////////////
@@ -118,13 +118,13 @@ void Backward(int backward)
 {
 	resetEncoders();
 
-	while((absolutoizquierdoatras<backward)&&(absolutoderechoatras<backward))
+	while((getAbsLeft()<backward)&&(getAbsRight()<backward))
 	{
-				absolutoizquierdoatras = abs(SensorValue[baseBottomLeft]);
-				absolutoderechoatras  = abs(SensorValue[baseBottomRight]);
+				setAbsLeft(abs(SensorValue[baseBottomLeft]));
+				setAbsRight(abs(SensorValue[baseBottomRight]));
 
 
-		if(absolutoizquierdoatras > absolutoderechoatras)
+		if(getAbsLeft() > getAbsRight())
 		{
 			motor[baseTopLeft]= 58;
     	motor[baseTopRight]= 60;
@@ -132,7 +132,7 @@ void Backward(int backward)
     	motor[baseBottomRight]= 60;
 
 		}
-  	else if(absolutoizquierdoatras < absolutoderechoatras)
+  	else if(getAbsLeft() < getAbsRight())
 		{
 
 			motor[baseTopLeft]= 60;
@@ -141,7 +141,7 @@ void Backward(int backward)
     	motor[baseBottomRight]= 58;
 
 		}
-		else if(absolutoizquierdoatras==absolutoderechoatras)
+		else if(getAbsLeft()==getAbsRight())
 		{
 			motor[baseTopLeft]= 60;
     	motor[baseTopRight]= 60;
@@ -174,27 +174,27 @@ void gRight(int gright)
 {
 	resetEncoders();
 
-	while((absolutoizquierdoatras<gright)&&(absolutoderechoatras<gright))
+	while((getAbsLeft()<gright)&&(getAbsRight()<gright))
 	{
-			absolutoizquierdoatras = abs(SensorValue[baseBottomLeft]);
-			absolutoderechoatras  = abs(SensorValue[baseBottomRight]);
+			setAbsLeft(abs(SensorValue[baseBottomLeft]));
+			setAbsRight(abs(SensorValue[baseBottomRight]));
 
 
-		if(absolutoizquierdoatras > absolutoderechoatras)
+		if(getAbsLeft() > getAbsRight())
 		{
 			motor[baseTopLeft]= -58;
     	motor[baseTopRight]= 60;
     	motor[baseBottomLeft]= -58;
     	motor[baseBottomRight]= 60;
 		}
-  	else if(absolutoderechoatras < absolutoizquierdoatras)
+  	else if(getAbsRight() < getAbsLeft())
 		{
 			motor[baseTopLeft]= -60;
     	motor[baseTopRight]= 58;
     	motor[baseBottomLeft]= -60;
     	motor[baseBottomRight]= 58;
 		}
-		else if(absolutoizquierdoatras==absolutoderechoatras)
+		else if(getAbsLeft()==getAbsRight())
 		{
 			motor[baseTopLeft]= -60;
     	motor[baseTopRight]= 60;
@@ -223,13 +223,13 @@ void gLeft(int gleft)
 {
 	resetEncoders();
 
-	while((absolutoizquierdoatras<gleft)&&(absolutoderechoatras<gleft))
+	while((getAbsLeft()<gleft)&&(getAbsRight()<gleft))
 	{
-				absolutoizquierdoatras = abs(SensorValue[baseBottomLeft]);
-				absolutoderechoatras  = abs(SensorValue[baseBottomRight]);
+				setAbsLeft(abs(SensorValue[baseBottomLeft]));
+				setAbsRight(abs(SensorValue[baseBottomRight]));
 
 
-		if(absolutoizquierdoatras > absolutoderechoatras)
+		if(getAbsLeft() > getAbsRight())
 		{
 			motor[baseTopLeft]= 58;
     	motor[baseTopRight]= -60;
@@ -237,7 +237,7 @@ void gLeft(int gleft)
     	motor[baseBottomRight]= -60;
 
 		}
-  	else if(absolutoderechoatras < absolutoizquierdoatras)
+  	else if(getAbsRight() < getAbsLeft())
 		{
 			motor[baseTopLeft]= 60;
     	motor[baseTopRight]= -58;
@@ -245,7 +245,7 @@ void gLeft(int gleft)
     	motor[baseBottomRight]= -58;
 
 		}
-		else if(absolutoizquierdoatras==absolutoderechoatras)
+		else if(getAbsLeft()==getAbsRight())
 		{
 			motor[baseTopLeft]= 60;
     	motor[baseTopRight]= -60;
