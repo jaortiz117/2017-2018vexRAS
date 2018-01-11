@@ -1,8 +1,14 @@
 #include "MotorAndSensorConfig.c"
 
-void moveFront(int clicks)
+void moveFrontIN(float inches)
 {
 
-	//move base motors a certain amount of clicks
+	//move base motors x amount of inches
+
+}
+
+void moveFrontCM(float cm){
+
+	//move based on centimeters
 
 }
