@@ -20,12 +20,24 @@ Handles encoder sensor logic
 int absLeft;
 int absRight;
 
+//setters
+
+void setAbsLeft(int newVal){
+	absLeft = newVal;
+}
+
+void setAbsRight(int newVal){
+	absRight = newVal;
+}
+
 //getters
 int getAbsLeft(){
+	setAbsLeft(abs(SensorValue[baseLeft]));
 	return absLeft;
 }
 
 int getAbsRight(){
+	setAbsRight(abs(SensorValue[baseRight]));
 	return absRight;
 }
 
@@ -39,16 +51,6 @@ float getSpeed(int clicks){// rev/s
 
 float getRevs(int ticks){
 	return ticks/TICKS_REV;
-}
-
-//setters
-
-void setAbsLeft(int newVal){
-	absLeft = newVal;
-}
-
-void setAbsRight(int newVal){
-	absRight = newVal;
 }
 
 /////////////
@@ -82,3 +84,15 @@ float tickConvertIN(int ticks){
 	float dist = circ*getRevs(ticks);
 	return dist;
 }
+
+int inToTicks(float inches){
+	//convert from inches and convert to ticks needed
+	float circ = WHEEL_DIAMETER_IN*PI;
+	float revs = inches/circ;
+	int ticks = TICKS_REV*revs;
+
+	return ticks;
+}
+
+
+//TODO create distTraveled, IN, CM, funct

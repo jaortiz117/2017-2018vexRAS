@@ -23,8 +23,8 @@ void moveForward(int ticks)//ticks: dist in ticks
 
 	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
 	{
-				setAbsLeft(abs(SensorValue[baseLeft]));
-				setAbsRight(abs(SensorValue[baseRight]));
+				//setAbsLeft(abs(SensorValue[baseLeft]));
+				//setAbsRight(abs(SensorValue[baseRight]));
 
 
 		if(getAbsLeft() > getAbsRight())
@@ -60,18 +60,23 @@ void moveForward(int ticks)//ticks: dist in ticks
     	motor[baseBottomRight]= 0;
 }
 
+//use inches as input to move
+void moveFrontIN(float inches){
+	moveForward(inToTicks(inches));
+}
+
 /**************************
 	Move Back
 ***************************/
-void moveBackward(int ticks)
+void moveBackward(int ticks)//I think this is redundant
 {
 	resetEncoders();
 	direction = -1;
 
 	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
 	{
-				setAbsLeft(abs(SensorValue[baseBottomLeft]));
-				setAbsRight(abs(SensorValue[baseBottomRight]));
+				//setAbsLeft(abs(SensorValue[baseBottomLeft]));
+				//setAbsRight(abs(SensorValue[baseBottomRight]));
 
 
 		if(getAbsLeft() > getAbsRight())
