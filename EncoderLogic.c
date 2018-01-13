@@ -30,7 +30,7 @@ int getAbsRight(){
 }
 
 
-float getSpeed(int clicks){
+float getSpeed(int clicks){// rev/s
 	//calculate a motor's speed
 	float speed;
 

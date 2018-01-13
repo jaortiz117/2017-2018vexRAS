@@ -16,7 +16,6 @@
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
 #include "AutonFiles.c"
-#include "EncoderLogic.c"
 #include "MovementLogic.c"
 
 /////////////////////////////////////////////////////////////////////////////////////////
