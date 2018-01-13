@@ -16,6 +16,7 @@ void gradualBrakes(){
 /*************************
 	Move Forward
 *************************/
+
 void moveForward(int ticks)//ticks: dist in ticks
 {
 	resetEncoders();
@@ -110,3 +111,6 @@ void moveBackward(int ticks)//I think this is redundant
   motor[baseBottomLeft]= 0;
   motor[baseBottomRight]= 0;
 }
+
+//TODO place side equalizer appart from the move functions using encoder difference
+//this way we can make equalizing more dynamic and that way more efficient

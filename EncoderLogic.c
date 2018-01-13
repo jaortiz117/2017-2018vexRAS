@@ -5,23 +5,21 @@ Handles encoder sensor logic
 
 ****************************/
 
-
-//#define LEFT_ENCODER dgtl1
-//#define RIGHT_ENCODER dgtl3
-
+/***********
+Constants
+***********/
 #define PI 3.14
 
 #define TICKS_REV 90
 #define WHEEL_DIAMETER_IN 4
 
 
-//init encoder values
+//globals
 //similar to how instance vars are used
 int absLeft;
 int absRight;
 
 //setters
-
 void setAbsLeft(int newVal){
 	absLeft = newVal;
 }
@@ -41,7 +39,6 @@ int getAbsRight(){
 	return absRight;
 }
 
-
 float getSpeed(int clicks){// rev/s
 	//calculate a motor's speed
 	float speed;
@@ -57,20 +54,13 @@ float getRevs(int ticks){
 ///METHODS///
 /////////////
 
-//attenuates speed between both sides
-void speedEqualize(float leftSpeed, float rightSpeed){
-	//used to attenuate for motor speed inequalities
-	//equalize motor speeds
-
-}
-
 //RESETTING ENCODERS
 void resetEncoders()
 {
 	resetSensor(baseLeft);
 	resetSensor(baseRight);
 
-	//other encoders must be added
+	//other encoders must be added as they are added to the robot
 
 	setAbsLeft(0);
 	setAbsRight(0);
@@ -93,6 +83,5 @@ int inToTicks(float inches){
 
 	return ticks;
 }
-
 
 //TODO create distTraveled, IN, CM, funct
