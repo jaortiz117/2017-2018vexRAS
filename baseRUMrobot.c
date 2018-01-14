@@ -43,109 +43,12 @@ void resetGyro()
 /////////////////////////////////////////
 
 /////////////////////////////////////////
-//////////////  FOWARD  /////////////////
-/////////////////////////////////////////
-
-void Foward(int forward)
-{
-	resetEncoders();
-
-	while((getAbsLeft()<forward)&&(getAbsRight()<forward))
-	{
-				setAbsLeft(abs(SensorValue[baseLeft]));
-				setAbsRight(abs(SensorValue[baseRight]));
-
-
-		if(getAbsLeft() > getAbsRight())
-		{
-			motor[baseTopLeft]= -58;
-    	motor[baseTopRight]= -60;
-    	motor[baseBottomLeft]= -58;
-    	motor[baseBottomRight]= -60;
-
-		}
-  	else if(getAbsLeft() < getAbsRight())
-		{
-
-			motor[baseTopLeft]= -60;
-    	motor[baseTopRight]= -58;
-    	motor[baseBottomLeft]= -60;
-    	motor[baseBottomRight]= -58;
-
-		}
-		else if(getAbsLeft()==getAbsRight())
-		{
-			motor[baseTopLeft]= -60;
-    	motor[baseTopRight]= -60;
-    	motor[baseBottomLeft]= -60;
-    	motor[baseBottomRight]= -60;
-		}
-	}
-			motor[baseTopLeft]= 0;
-    	motor[baseTopRight]= 0;
-    	motor[baseBottomLeft]= 0;
-    	motor[baseBottomRight]= 0;
-}
-/////////////////////////////////////////
-///////////  END FOWARD   ///////////////
-/////////////////////////////////////////
-
-/////////////////////////////////////////
-////////////  BACKWARD  /////////////////
-/////////////////////////////////////////
-
-void Backward(int backward)
-{
-	resetEncoders();
-
-	while((getAbsLeft()<backward)&&(getAbsRight()<backward))
-	{
-				setAbsLeft(abs(SensorValue[baseBottomLeft]));
-				setAbsRight(abs(SensorValue[baseBottomRight]));
-
-
-		if(getAbsLeft() > getAbsRight())
-		{
-			motor[baseTopLeft]= 58;
-    	motor[baseTopRight]= 60;
-    	motor[baseBottomLeft]= 58;
-    	motor[baseBottomRight]= 60;
-
-		}
-  	else if(getAbsLeft() < getAbsRight())
-		{
-
-			motor[baseTopLeft]= 60;
-    	motor[baseTopRight]= 58;
-    	motor[baseBottomLeft]= 60;
-    	motor[baseBottomRight]= 58;
-
-		}
-		else if(getAbsLeft()==getAbsRight())
-		{
-			motor[baseTopLeft]= 60;
-    	motor[baseTopRight]= 60;
-    	motor[baseBottomLeft]= 60;
-    	motor[baseBottomRight]= 60;
-		}
-	}
-			motor[baseTopLeft]= 0;
-    	motor[baseTopRight]= 0;
-    	motor[baseBottomLeft]= 0;
-    	motor[baseBottomRight]= 0;
-		}
-
-/////////////////////////////////////////
-///////////  END BACKWARD   /////////////
-/////////////////////////////////////////
-
-/////////////////////////////////////////
 ///////////  TURN   /////////////////////
 /////////////////////////////////////////
 
 int gyroscope;
 
-void Giro(char Side, int value){/////////////////////////////////////////////////////////////////////////////////////FUNCION#8: Giro
+void Giro(char Side, int value){//FUNCION#8: Giro
 
 SensorType[gyro] = sensorNone;
 SensorType[gyro] = sensorGyro;
