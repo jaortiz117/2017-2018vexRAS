@@ -225,17 +225,22 @@ wait1Msec(250);
 void hightControl(int maxHigh){
 //lowest point 670
 //max point 2100
+bool run = false;
 		while((SensorValue(highDetector)<16) && (SensorValue(lift)<maxHigh)){
 	   	  motor(torreTopRight)= -127;
 	   	  motor(torreTopLeft)=  127;
 	    	motor(torreBottomLeft)= -127;
 	    	motor(torreBottomRight)= 127;
+
+	    	run = true;
 	    }
 
-	    	motor(torreTopRight)= -15;
-	   	  motor(torreTopLeft)=  15;
-	    	motor(torreBottomLeft)= -15;
-	    	motor(torreBottomRight)= 15;
+	    if (run){
+	    	motor(torreTopRight)= -50;
+	   	  motor(torreTopLeft)=  50;
+	    	motor(torreBottomLeft)= -50;
+	    	motor(torreBottomRight)= 50;
+	    }
 
 }
 /////////////////////////////////////////
@@ -246,25 +251,25 @@ void hightControl(int maxHigh){
 /////////// CONE LIFT /////////////////////
 /////////////////////////////////////////
 
-void coneLift(char direction, int hight){
+void coneLift(char direction, int height){
 	//lowest point 0
 	//max high 2900-3050
 		if(direction == 'U'){
-				while(SensorValue(chainBar)<hight){
-					motor(chainPivot) = -127;
+				while(SensorValue(chainBar)<height){
+					motor(chainPivot) = -90;
 				}
 			}
 
 		else if(direction == 'D'){
-			while(SensorValue(chainBar)>hight){
+			while(SensorValue(chainBar)>height){
 				motor(chainPivot) = 127;
 			}
+		}
 
-			motor(chainPivot) = 0;
+			motor(chainPivot) = -30;
 
 	}
 
-}
 /////////////////////////////////////////
 /////////// END CONE LIFT/////////// //////
 /////////////////////////////////////////
@@ -422,8 +427,16 @@ task usercontrol()
 
     //crazy try
     	if(vexRT[Btn8U] == 1){
-    		//hightControl(2100);
-    		coneLift('R',2900);
+    		coneLift('U',700);
+    		hightControl(2100);
+    		coneLift('U',2900);
+    		wait1Msec(500);
+    		SensorValue(claw) = 1;
+    		wait1Msec(500);
+    		SensorValue(claw) = 0;
+
+				coneLift('D',700);  // dont works
+
     	}
 
   }
