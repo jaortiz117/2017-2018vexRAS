@@ -119,7 +119,7 @@ void Foward(int forward)
 ////////////  BACKWARD  /////////////////
 /////////////////////////////////////////
 
-void Backward(int backward)
+void Backwards(int backward)
 {
 	resetEncoders();
 
@@ -228,7 +228,7 @@ void hightControl(int maxHigh){
 bool run = false;
 		while((SensorValue(highDetector)<16) && (SensorValue(lift)<maxHigh)){
 	   	  motor(torreTopRight)= -127;
-	   	  motor(torreTopLeft)=  127;
+	   	  motor(torreTopLeft) = 127;
 	    	motor(torreBottomLeft)= -127;
 	    	motor(torreBottomRight)= 127;
 
@@ -237,7 +237,7 @@ bool run = false;
 
 	    if (run){
 	    	motor(torreTopRight)= -50;
-	   	  motor(torreTopLeft)=  50;
+	    	 motor(torreTopLeft) = 50;
 	    	motor(torreBottomLeft)= -50;
 	    	motor(torreBottomRight)= 50;
 	    }
@@ -246,6 +246,34 @@ bool run = false;
 /////////////////////////////////////////
 /////////// END High ultra control //////
 /////////////////////////////////////////
+
+/////////////////////////////////////////
+/////////// PUT CONE IN STACK///// //////
+/////////////////////////////////////////
+
+void stack (int high){
+bool run = false;
+		while((SensorValue(highDetector)>16) && (SensorValue(lift)<high)){
+	   	  motor(torreTopRight)= 60;
+	   	  motor(torreTopLeft) = -60;
+	    	motor(torreBottomLeft)= 60;
+	    	motor(torreBottomRight)= -60;
+
+	    	run = true;
+	    }
+
+	    if (run){
+	    	motor(torreTopRight)= -50;
+	    	 motor(torreTopLeft) = 50;
+	    	motor(torreBottomLeft)= -50;
+	    	motor(torreBottomRight)= 50;
+	    }
+}
+
+/////////////////////////////////////////
+/////////// END PUT CONE IN STACK/ //////
+/////////////////////////////////////////
+
 
 /////////////////////////////////////////
 /////////// CONE LIFT /////////////////////
@@ -266,13 +294,13 @@ void coneLift(char direction, int height){
 			}
 		}
 
-			motor(chainPivot) = -30;
-
+		motor(chainPivot) = 0;
 	}
 
 /////////////////////////////////////////
 /////////// END CONE LIFT/////////// //////
 /////////////////////////////////////////
+
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -361,43 +389,43 @@ task usercontrol()
 
     //base extra motor
     if(SensorValue[MGPiston] == 1){
-   		 motor[baseMG]= -vexRT[Ch3] + vexRT[Ch1];
+   		 motor[baseMG]= -vexRT[Ch3];
   	}
 
     //moving goal mech
  		if(SensorValue[MGPiston] == 0){
    		 if(vexRT[Btn7R] == 1){
-   		 motor[baseMG]= -127;
+   		 motor[baseMG]= 127;
    		}
 
 
    		else if(vexRT[Btn7L] == 1){
-   		 motor[baseMG]= 127;
+   		 motor[baseMG]= -127;
    		}
 
    		else{
-   			motor[baseMG] =0;
+   			motor[baseMG]= 0;
    		}
   	}
 
     //torre
     if((vexRT[Btn6U] == 1) && (vexRT[Btn6D] == 0)){
    	  motor(torreTopRight)= -127;
-   	  motor(torreTopLeft)=  127;
+   	  motor(torreTopLeft) = 127;
     	motor(torreBottomLeft)= -127;
     	motor(torreBottomRight)= 127;
     }
 
     else if((vexRT[Btn6D] == 1) && (vexRT[Btn6U] == 0)){
     	motor(torreTopRight)= 127;
-   	  motor(torreTopLeft)= -127;
+    	 motor(torreTopLeft) = -127;
     	motor(torreBottomLeft)= 127;
     	motor(torreBottomRight)= -127;
     }
 
     else {
     	motor(torreTopRight)= 0;
-   	  motor(torreTopLeft)=  0;
+    	 motor(torreTopLeft) = 0;
     	motor(torreBottomLeft)= 0;
     	motor(torreBottomRight)= 0;
     }
@@ -430,12 +458,13 @@ task usercontrol()
     		coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
-    		wait1Msec(500);
+    		stack(2100);
     		SensorValue(claw) = 1;
     		wait1Msec(500);
+    		hightControl(2100);
     		SensorValue(claw) = 0;
-
-				coneLift('D',700);  // dont works
+				wait1Msec(500);
+				coneLift('D',1000);  // dont works
 
     	}
 
