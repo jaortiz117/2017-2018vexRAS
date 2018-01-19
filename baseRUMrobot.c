@@ -253,6 +253,7 @@ bool run = false;
 
 void stack (int high){
 bool run = false;
+	if(SensorValue(lift)>750){
 		while((SensorValue(highDetector)>16) && (SensorValue(lift)<high)){
 	   	  motor(torreTopRight)= 60;
 	   	  motor(torreTopLeft) = -60;
@@ -261,6 +262,8 @@ bool run = false;
 
 	    	run = true;
 	    }
+	  }
+
 
 	    if (run){
 	    	motor(torreTopRight)= -50;
@@ -298,8 +301,49 @@ void coneLift(char direction, int height){
 	}
 
 /////////////////////////////////////////
-/////////// END CONE LIFT/////////// //////
+/////////// END CONE LIFT/////////// ////
 /////////////////////////////////////////
+
+
+/////////////////////////////////////////
+/////////// MOVING GOAL /////////////////
+/////////////////////////////////////////
+void moveMG(char direction, int height){
+
+SensorValue[MGPiston] =0;
+
+		while(SensorValue[movingGoal]<height && 'U'){
+		   		 motor[baseMG]= -127;
+		 }
+
+
+		while(SensorValue[movingGoal]>height && 'D'){
+		    motor[baseMG]= 127;
+ 		}
+
+
+		motor[baseMG]= 0;
+
+}
+/////////////////////////////////////////
+/////////// END MOVING GOAL//////////////
+/////////////////////////////////////////
+
+
+task stackCone(){
+				coneLift('U',700);
+    		hightControl(2100);
+    		coneLift('U',2900);
+    		stack(2100);
+    		SensorValue(claw) = 1;
+    		wait1Msec(500);
+    		hightControl(2100);
+    		SensorValue(claw) = 0;
+				wait1Msec(500);
+				coneLift('D',1000);  // dont works perfectly
+
+				EndTimeSlice();
+}
 
 
 /*---------------------------------------------------------------------------*/
@@ -395,12 +439,12 @@ task usercontrol()
     //moving goal mech
  		if(SensorValue[MGPiston] == 0){
    		 if(vexRT[Btn7R] == 1){
-   		 motor[baseMG]= 127;
+   		 motor[baseMG]= -127;
    		}
 
 
    		else if(vexRT[Btn7L] == 1){
-   		 motor[baseMG]= -127;
+   		 motor[baseMG]= 127;
    		}
 
    		else{
@@ -455,7 +499,7 @@ task usercontrol()
 
     //crazy try
     	if(vexRT[Btn8U] == 1){
-    		coneLift('U',700);
+    		/*coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
     		stack(2100);
@@ -464,7 +508,12 @@ task usercontrol()
     		hightControl(2100);
     		SensorValue(claw) = 0;
 				wait1Msec(500);
-				coneLift('D',1000);  // dont works
+				coneLift('D',1000);  // dont works perfectly */
+
+				startTask(stackCone);
+				startTask(usercontrol);
+
+				EndTimeSlice();
 
     	}
 
