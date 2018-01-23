@@ -22,7 +22,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////	 GLOBAL VARIABLES  	///////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-
+//bool taskListener = false;
 /////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////	 FUNCTIONS  	/////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -205,7 +205,15 @@ SensorValue[MGPiston] =0;
 /////////////////////////////////////////
 /////////// END MOVING GOAL//////////////
 /////////////////////////////////////////
+bool stackConeListener;
 
+void setStackConeListener(bool listener){
+		stackConeListener = listener;
+}
+
+bool getStackConeListener(){
+	return stackConeListener;
+}
 
 task stackCone(){
 				coneLift('U',700);
@@ -218,8 +226,9 @@ task stackCone(){
     		SensorValue(claw) = 0;
 				wait1Msec(500);
 				coneLift('D',1000);  // dont works perfectly
+				setStackConeListener(true);
 
-			return;
+			//return;
 }
 
 task base(){
@@ -390,9 +399,13 @@ task usercontrol()
     //crazy try
     	if(vexRT[Btn8U] == 1){
 
-				//startTask(stackCone);
-    		//startTask(base);
+				startTask(stackCone);
+    		startTask(base);
 
+    		if(getStackConeListener()){
+    			stopTask(stackCone);
+    		}
+    	/********************
     		coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
@@ -404,10 +417,11 @@ task usercontrol()
 				wait1Msec(500);
 				coneLift('D',1000);  // dont works perfectly
 
+				********************/
 
 				//EndTimeSlice();
 
-				return;
+				//return;
 
     	}
 
