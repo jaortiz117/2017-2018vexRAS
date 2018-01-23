@@ -342,7 +342,18 @@ task stackCone(){
 				wait1Msec(500);
 				coneLift('D',1000);  // dont works perfectly
 
-				EndTimeSlice();
+			return;
+}
+
+task base(){
+
+			motor[baseTopLeft]= vexRT[Ch3] + vexRT[Ch1];
+    	motor[baseTopRight]= -vexRT[Ch3] + vexRT[Ch1];
+    	motor[baseBottomLeft]= vexRT[Ch3] + vexRT[Ch1];
+    	motor[baseBottomRight]= -vexRT[Ch3] + vexRT[Ch1];
+
+    	return;
+
 }
 
 
@@ -499,7 +510,11 @@ task usercontrol()
 
     //crazy try
     	if(vexRT[Btn8U] == 1){
-    		/*coneLift('U',700);
+
+				//startTask(stackCone);
+    		//startTask(base);
+
+    		coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
     		stack(2100);
@@ -508,12 +523,12 @@ task usercontrol()
     		hightControl(2100);
     		SensorValue(claw) = 0;
 				wait1Msec(500);
-				coneLift('D',1000);  // dont works perfectly */
+				coneLift('D',1000);  // dont works perfectly
 
-				startTask(stackCone);
-				startTask(usercontrol);
 
-				EndTimeSlice();
+				//EndTimeSlice();
+
+				return;
 
     	}
 
