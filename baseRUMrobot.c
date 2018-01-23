@@ -60,13 +60,13 @@ while(gyroscope < value){
 
   gyroscope = abs(SensorValue[gyro]);
 		motor[baseTopLeft]= 60;
-   	motor[baseTopRight]= -60;
+   	motor[baseTopRight]= 60;
    	motor[baseBottomLeft]= 60;
-   	motor[baseBottomRight]= -60;
+   	motor[baseBottomRight]= 60;
 }
-	motor[baseTopLeft]= 15;
+	motor[baseTopLeft]= -15;
   motor[baseTopRight]= -15;
-  motor[baseBottomLeft]= 15;
+  motor[baseBottomLeft]= -15;
   motor[baseBottomRight]= -15;
 wait1Msec(250);
 
@@ -77,13 +77,13 @@ while(gyroscope < value){
 
 	gyroscope = abs(SensorValue[gyro]);
 		motor[baseTopLeft]= -60;
-    motor[baseTopRight]= 60;
+    motor[baseTopRight]= -60;
     motor[baseBottomLeft]= -60;
-    motor[baseBottomRight]= 60;
+    motor[baseBottomRight]= -60;
 }
-	motor[baseTopLeft]= -15;
+	motor[baseTopLeft]= 15;
   motor[baseTopRight]= 15;
-  motor[baseBottomLeft]= -15;
+  motor[baseBottomLeft]= 15;
   motor[baseBottomRight]= 15;
 wait1Msec(250);
 
@@ -93,6 +93,146 @@ wait1Msec(250);
 /////////////////////////////////////////
 ///////////  END TURN  ////////////////
 /////////////////////////////////////////
+
+
+/////////////////////////////////////////
+/////////High ultra control /////////////
+/////////////////////////////////////////
+
+void hightControl(int maxHigh){
+//lowest point 670
+//max point 2100
+bool run = false;
+		while((SensorValue(highDetector)<16) && (SensorValue(lift)<maxHigh)){
+	   	  motor(torreTopRight)= -127;
+	   	  motor(torreTopLeft) = 127;
+	    	motor(torreBottomLeft)= -127;
+	    	motor(torreBottomRight)= 127;
+
+	    	run = true;
+	    }
+
+	    if (run){
+	    	motor(torreTopRight)= -50;
+	    	 motor(torreTopLeft) = 50;
+	    	motor(torreBottomLeft)= -50;
+	    	motor(torreBottomRight)= 50;
+	    }
+
+}
+/////////////////////////////////////////
+/////////// END High ultra control //////
+/////////////////////////////////////////
+
+/////////////////////////////////////////
+/////////// PUT CONE IN STACK///// //////
+/////////////////////////////////////////
+
+void stack (int high){
+bool run = false;
+	if(SensorValue(lift)>750){
+		while((SensorValue(highDetector)>16) && (SensorValue(lift)<high)){
+	   	  motor(torreTopRight)= 60;
+	   	  motor(torreTopLeft) = -60;
+	    	motor(torreBottomLeft)= 60;
+	    	motor(torreBottomRight)= -60;
+
+	    	run = true;
+	    }
+	  }
+
+
+	    if (run){
+	    	motor(torreTopRight)= -50;
+	    	 motor(torreTopLeft) = 50;
+	    	motor(torreBottomLeft)= -50;
+	    	motor(torreBottomRight)= 50;
+	    }
+}
+
+/////////////////////////////////////////
+/////////// END PUT CONE IN STACK/ //////
+/////////////////////////////////////////
+
+
+/////////////////////////////////////////
+/////////// CONE LIFT /////////////////////
+/////////////////////////////////////////
+
+void coneLift(char direction, int height){
+	//lowest point 0
+	//max high 2900-3050
+		if(direction == 'U'){
+				while(SensorValue(chainBar)<height){
+					motor(chainPivot) = -90;
+				}
+			}
+
+		else if(direction == 'D'){
+			while(SensorValue(chainBar)>height){
+				motor(chainPivot) = 127;
+			}
+		}
+
+		motor(chainPivot) = 0;
+	}
+
+/////////////////////////////////////////
+/////////// END CONE LIFT/////////// ////
+/////////////////////////////////////////
+
+
+/////////////////////////////////////////
+/////////// MOVING GOAL /////////////////
+/////////////////////////////////////////
+void moveMG(char direction, int height){
+
+SensorValue[MGPiston] =0;
+
+		while(SensorValue[movingGoal]<height && 'U'){
+		   		 motor[baseMG]= -127;
+		 }
+
+
+		while(SensorValue[movingGoal]>height && 'D'){
+		    motor[baseMG]= 127;
+ 		}
+
+
+		motor[baseMG]= 0;
+
+}
+/////////////////////////////////////////
+/////////// END MOVING GOAL//////////////
+/////////////////////////////////////////
+
+
+task stackCone(){
+				coneLift('U',700);
+    		hightControl(2100);
+    		coneLift('U',2900);
+    		stack(2100);
+    		SensorValue(claw) = 1;
+    		wait1Msec(500);
+    		hightControl(2100);
+    		SensorValue(claw) = 0;
+				wait1Msec(500);
+				coneLift('D',1000);  // dont works perfectly
+
+			return;
+}
+
+task base(){
+
+			motor[baseTopLeft]= vexRT[Ch3] + vexRT[Ch1];
+    	motor[baseTopRight]= -vexRT[Ch3] + vexRT[Ch1];
+    	motor[baseBottomLeft]= vexRT[Ch3] + vexRT[Ch1];
+    	motor[baseBottomRight]= -vexRT[Ch3] + vexRT[Ch1];
+
+    	return;
+
+}
+
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -171,65 +311,55 @@ task usercontrol()
 
     //arcadeControl(Ch3, Ch1);// didnt have to do anything found pre existing functions
 
-    if(SensorValue(MGLeft) == 1 && SensorValue(MGRight) == 1){
-   		 motor[baseMG]= vexRT[Ch3] + vexRT[Ch1];
-   	}
-
-
-   	//transmition pneumatic
-		   	if(vexRT[Btn8U] == 1 && active == false){
-
-		   		SensorValue[MGLeft] = 1;
-		   		SensorValue[MGRight] = 1;
-
-		   		active = !active;
+    	//transmition pneumatic
+		   	if (vexRT[Btn7U] == 1){
+		   		SensorValue[MGPiston] = 0;
 		   	}
 
-		   	if(vexRT[Btn8U] == 1 && active == true){
-
-		   		SensorValue[MGLeft] = 1;
-		   		SensorValue[MGRight] = 1;
-
-		   		active = !active;
+		   	else if (vexRT[Btn7D] == 1) {
+		   		SensorValue[MGPiston] = 1;
 		   	}
+
+
+    //base extra motor
+    if(SensorValue[MGPiston] == 1){
+   		 motor[baseMG]= -vexRT[Ch3];
+  	}
 
     //moving goal mech
-   	if(SensorValue(MGLeft) == 0 && SensorValue(MGRight) == 0){
-
-   		if(vexRT[Btn8R] == 1 && vexRT[Btn8L] == 0){
+ 		if(SensorValue[MGPiston] == 0){
+   		 if(vexRT[Btn7R] == 1){
    		 motor[baseMG]= -127;
    		}
 
 
-   		if(vexRT[Btn8L] == 1 && vexRT[Btn8R] == 0){
+   		else if(vexRT[Btn7L] == 1){
    		 motor[baseMG]= 127;
    		}
 
-   		else {
-   			 motor[baseMG]= 0;
-   			 motor[baseMG]= 0;
+   		else{
+   			motor[baseMG]= 0;
    		}
-
-   	}
+  	}
 
     //torre
     if((vexRT[Btn6U] == 1) && (vexRT[Btn6D] == 0)){
    	  motor(torreTopRight)= -127;
-   	  motor(torreTopLeft)=  127;
+   	  motor(torreTopLeft) = 127;
     	motor(torreBottomLeft)= -127;
     	motor(torreBottomRight)= 127;
     }
 
     else if((vexRT[Btn6D] == 1) && (vexRT[Btn6U] == 0)){
     	motor(torreTopRight)= 127;
-   	  motor(torreTopLeft)= -127;
+    	 motor(torreTopLeft) = -127;
     	motor(torreBottomLeft)= 127;
     	motor(torreBottomRight)= -127;
     }
 
     else {
     	motor(torreTopRight)= 0;
-   	  motor(torreTopLeft)=  0;
+    	 motor(torreTopLeft) = 0;
     	motor(torreBottomLeft)= 0;
     	motor(torreBottomRight)= 0;
     }
@@ -251,11 +381,35 @@ task usercontrol()
 
     //cone intake
     if(vexRT[Btn8D] == 1){
-    	SensorValue[claw] = 0;
-    }
-    else {
     	SensorValue[claw] = 1;
     }
+    else {
+    	SensorValue[claw] = 0;
+    }
+
+    //crazy try
+    	if(vexRT[Btn8U] == 1){
+
+				//startTask(stackCone);
+    		//startTask(base);
+
+    		coneLift('U',700);
+    		hightControl(2100);
+    		coneLift('U',2900);
+    		stack(2100);
+    		SensorValue(claw) = 1;
+    		wait1Msec(500);
+    		hightControl(2100);
+    		SensorValue(claw) = 0;
+				wait1Msec(500);
+				coneLift('D',1000);  // dont works perfectly
+
+
+				//EndTimeSlice();
+
+				return;
+
+    	}
 
   }
 }
