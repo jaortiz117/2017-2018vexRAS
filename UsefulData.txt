@@ -1,0 +1,7 @@
+lift Potentiometer:
+	max = 2100
+	min = 670
+
+cone-Lift Potentiometer:
+	max = 305/2900
+	min = 0
