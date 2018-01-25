@@ -13,6 +13,9 @@ Constants
 #define POT_MAX 4092 //need to verify
 #define SENSOR_AMOUNT 3
 
+#define LIFT_LOW 670
+#define LIFT_HIGH 2100
+
 //globals
 int sensors[SENSOR_AMOUNT][2] = {
 	{POT_MIN, POT_MAX},
@@ -25,8 +28,30 @@ int map(int x, int in_min, int in_max, int out_min, int out_max)
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
+//takes the name of the sensor and translates into index of array
+int sensorToIndex(tSensors sensor){
+	switch(sensor){
+
+		case lift:
+			return 0;
+			break;
+
+		case movingGoal:
+			return 1;
+			break;
+
+		case chainBar:
+			return 2;
+			break;
+
+		default:
+			return -1;
+	}
+}
+
 //setters
 void setRange(tSensors sensor, int lowLimit, int highLimit){//limits in "ticks"
+
 	sensors[sensor][0] = lowLimit;
 	sensors[sensor][1] = highLimit;
 }
@@ -51,3 +76,8 @@ int getPotDeg(tSensors sensor){
 /**********
 Methods
 **********/
+
+void initPots(){
+	setRange(lift, LIFT_LOW, LIFT_HIGH);
+
+}
