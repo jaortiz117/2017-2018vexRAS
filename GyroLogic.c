@@ -30,6 +30,7 @@ void resetGyro()
  		wait1Msec(1000);
 }
 
-int gyroToDegree(int gyroVal){
+int gyroToDegree(tSensors sensor){
+	int gyroVal = SensorValue[sensor];
 	return gyroVal/GYRO_DIVISOR;
 }
