@@ -17,7 +17,7 @@ Constants
 #define LIFT_HIGH 2100
 
 //globals
-int sensors[SENSOR_AMOUNT][2] = {
+int sensors[SENSOR_AMOUNT][2] = {//array that stores each sensors' "settings"
 	{POT_MIN, POT_MAX},
 	{POT_MIN, POT_MAX},
 	{POT_MIN, POT_MAX}};
@@ -52,16 +52,22 @@ int sensorToIndex(tSensors sensor){
 //setters
 void setRange(tSensors sensor, int lowLimit, int highLimit){//limits in "ticks"
 
-	sensors[sensor][0] = lowLimit;
-	sensors[sensor][1] = highLimit;
+	int idx = sensorToIndex(sensor);
+
+	sensors[idx][0] = lowLimit;
+	sensors[idx][1] = highLimit;
 }
 
 void setOrigin(tSensors sensor, int val){//in "ticks"
-	sensors[sensor][0] = val;
+	int idx = sensorToIndex(sensor);
+
+	sensors[idx][0] = val;
 }
 
 void setMax(tSensors sensor, int val){//in "ticks"
-	sensors[sensor][1] = val;
+	int idx = sensorToIndex(sensor);
+
+	sensors[idx][1] = val;
 }
 
 //getters
@@ -70,7 +76,9 @@ int getPot(tSensors sensor){
 }
 int getPotDeg(tSensors sensor){
 	int val = SensorValue(sensor);
-	return map(val, sensors[sensor][0], sensors[sensor][1], 0, 250);
+	int idx = sensorToIndex(sensor);
+
+	return map(val, sensors[idx][0], sensors[idx][1], 0, 250);
 }
 
 /**********
