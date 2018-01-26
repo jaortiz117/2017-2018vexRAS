@@ -15,6 +15,8 @@ Constants
 
 #define LIFT_LOW 670
 #define LIFT_HIGH 2100
+#define CONE_LOW 0
+#define CONE_HIGH 2975
 
 //globals
 int sensors[SENSOR_AMOUNT][2] = {//array that stores each sensors' "settings"
@@ -87,5 +89,6 @@ Methods
 
 void initPots(){
 	setRange(lift, LIFT_LOW, LIFT_HIGH);
-
+	setRange(chainBar, CONE_LOW, CONE_HIGH);
+	//setRange(movingGoal, GOAL_LOW, GOAL_HIGH);
 }

@@ -3,5 +3,5 @@ lift Potentiometer:
 	min = 670
 
 cone-Lift Potentiometer:
-	max = 305/2900
+	max = (3050+2900)/2
 	min = 0
