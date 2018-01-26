@@ -13,6 +13,7 @@ Constants
 #define POT_MAX 4092 //need to verify
 #define SENSOR_AMOUNT 3
 
+//sensor maximum and minimum values based their current locations
 #define LIFT_LOW 670
 #define LIFT_HIGH 2100
 #define CONE_LOW 0

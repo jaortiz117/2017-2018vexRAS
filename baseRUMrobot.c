@@ -310,16 +310,9 @@ task autonomous()
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-
-task usercontrol()
-{
-  // User control code here, inside the loop
-
-	bool active = false;
-
-  while (true)
-  {
-  	//base
+task controller(){
+	while(true){
+	//base
     	motor[baseTopLeft]= vexRT[Ch3] + vexRT[Ch1];
     	motor[baseTopRight]= -vexRT[Ch3] + vexRT[Ch1];
     	motor[baseBottomLeft]= vexRT[Ch3] + vexRT[Ch1];
@@ -432,6 +425,29 @@ task usercontrol()
 				//return;
 
     	}
+    	AbortTimeSlice();
+    }
+}
+task usercontrol()
+{
+  // User control code here, inside the loop
 
+	//bool active = false;
+
+	StartTask(controller);
+  while (true)
+  {
+
+  	if(vexRT[Btn8L] == 1 && vexRT[Btn8R] == 1){
+  		StopTask(controller);
+  		stopAllMotors();
+  		wait1Msec(500);
+  		StartTask(controller);
+  		//break;
+  	}
+
+  	wait1Msec(10);
   }
+
+	//startTask(usercontrol);
 }
