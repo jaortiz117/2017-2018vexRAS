@@ -9,20 +9,87 @@
 /**********
 Constants
 **********/
+#define POT_MIN 5
+#define POT_MAX 4092 //need to verify
+#define SENSOR_AMOUNT 3
+
+//sensor maximum and minimum values based their current locations
+#define LIFT_LOW 670
+#define LIFT_HIGH 2100
+#define CONE_LOW 0
+#define CONE_HIGH 2975
 
 //globals
-//int[] sensors = {[s1:{lowLim, hiLim}], ...};
+int sensors[SENSOR_AMOUNT][2] = {//array that stores each sensors' "settings"
+	{POT_MIN, POT_MAX},
+	{POT_MIN, POT_MAX},
+	{POT_MIN, POT_MAX}};
+
+//Re-maps a number from one range to another
+int map(int x, int in_min, int in_max, int out_min, int out_max)
+{
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+//takes the name of the sensor and translates into index of array
+int sensorToIndex(tSensors sensor){
+	switch(sensor){
+
+		case lift:
+			return 0;
+			break;
+
+		case movingGoal:
+			return 1;
+			break;
+
+		case chainBar:
+			return 2;
+			break;
+
+		default:
+			return -1;
+	}
+}
 
 //setters
-//void setRange(int lowLimit, int highLimit);
+void setRange(tSensors sensor, int lowLimit, int highLimit){//limits in "ticks"
 
+	int idx = sensorToIndex(sensor);
+
+	sensors[idx][0] = lowLimit;
+	sensors[idx][1] = highLimit;
+}
+
+void setOrigin(tSensors sensor, int val){//in "ticks"
+	int idx = sensorToIndex(sensor);
+
+	sensors[idx][0] = val;
+}
+
+void setMax(tSensors sensor, int val){//in "ticks"
+	int idx = sensorToIndex(sensor);
+
+	sensors[idx][1] = val;
+}
 
 //getters
-//int getPot();
-//int getPotDeg();
+int getPot(tSensors sensor){
+	return SensorValue(sensor);
+}
+int getPotDeg(tSensors sensor){
+	int val = SensorValue(sensor);
+	int idx = sensorToIndex(sensor);
+
+	return map(val, sensors[idx][0], sensors[idx][1], 0, 250);
+}
 
 /**********
 Methods
 **********/
 
-//int map(int value, int lowLimit, int highLimit, int newLow, int newHigh);
+void initPots(){
+	setRange(lift, LIFT_LOW, LIFT_HIGH);
+	setRange(chainBar, CONE_LOW, CONE_HIGH);
+	//setRange(movingGoal, GOAL_LOW, GOAL_HIGH);
+}
