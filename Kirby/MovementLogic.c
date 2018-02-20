@@ -2,21 +2,35 @@
 #include "EncoderLogic.c"
 
 int direction = 1;
+
+//motor movement
+void baseMove(int lSpeed, int rSpeed){
+	motor[baseTopLeft]= -lSpeed;
+  motor[baseTopRight]= -rSpeed;
+  motor[baseBottomLeft]= -lSpeed;
+  motor[baseBottomRight]= -rSpeed;
+}
+
 //TODO make 2 different braking functions
 void suddenBrakes(){
 	//for use when turning
 	//stops instantly
+
+	baseMove(0,0);
 }
 
 void gradualBrakes(){
 	//for use when moving forward or back
 	//stops the robot gradually so it doesnt tip over
+
+	//
 }
 
 /*************************
 	Move Forward
 *************************/
 
+//TODO: make L/R equalization dynamic. it is currently a fixed amount.
 void moveForward(int ticks)//ticks: dist in ticks
 {
 	resetEncoders();
@@ -30,27 +44,33 @@ void moveForward(int ticks)//ticks: dist in ticks
 
 		if(getAbsLeft() > getAbsRight())
 		{
-			motor[baseTopLeft]= -58;
-    	motor[baseTopRight]= -60;
-    	motor[baseBottomLeft]= -58;
-    	motor[baseBottomRight]= -60;
+			//motor[baseTopLeft]= -58;
+    	//motor[baseTopRight]= -60;
+    	//motor[baseBottomLeft]= -58;
+    	//motor[baseBottomRight]= -60;
+
+			baseMove(58, 60);
 
 		}
   	else if(getAbsLeft() < getAbsRight())
 		{
 
-			motor[baseTopLeft]= -60;
-    	motor[baseTopRight]= -58;
-    	motor[baseBottomLeft]= -60;
-    	motor[baseBottomRight]= -58;
+			//motor[baseTopLeft]= -60;
+    	//motor[baseTopRight]= -58;
+    	//motor[baseBottomLeft]= -60;
+    	//motor[baseBottomRight]= -58;
+
+    	baseMove(60, 58);
 
 		}
 		else if(getAbsLeft()==getAbsRight())
 		{
-			motor[baseTopLeft]= -60;
-    	motor[baseTopRight]= -60;
-    	motor[baseBottomLeft]= -60;
-    	motor[baseBottomRight]= -60;
+			//motor[baseTopLeft]= -60;
+    	//motor[baseTopRight]= -60;
+    	//motor[baseBottomLeft]= -60;
+    	//motor[baseBottomRight]= -60;
+
+    	baseMove(60, 60);
 		}
 	}
 
