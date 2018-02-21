@@ -19,11 +19,20 @@ void suddenBrakes(){
 	baseMove(0,0);
 }
 
-void gradualBrakes(){
-	//for use when moving forward or back
+void gradualBrakes(int currentSpeed, int distRemaining, int origDist){
+	//for use when moving forward or back at speed
 	//stops the robot gradually so it doesnt tip over
 
-	//
+	//runs on every iteration of moveForward loop
+
+	int speed = currentSpeed;
+
+	if(distRemaining < origDist/4){
+		speed = origDist*(sqrt(distRemaining));
+	}
+
+	//returns new speed
+	return speed;
 }
 
 /*************************
