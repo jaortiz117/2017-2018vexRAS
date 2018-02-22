@@ -28,6 +28,7 @@
 ////////////////////////////////	 FUNCTIONS  	/////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
+	int liftHight[14];
 
 /////////////////////////////////////////
 ///////	RESSETING ENCODERS	///////////////
@@ -278,6 +279,7 @@ bool run = false;
 /////////////////////////////////////////
 
 
+
 /////////////////////////////////////////
 /////////// CONE LIFT /////////////////////
 /////////////////////////////////////////
@@ -291,8 +293,8 @@ void coneLift(char direction, int height){
 				}
 			}
 
-		else if(direction == 'D'){
-			while(SensorValue(chainBar)>height){
+		if(direction == 'D'){
+			while((SensorValue(chainBar)>height)){
 				motor(chainPivot) = 127;
 			}
 		}
@@ -331,6 +333,8 @@ SensorValue[MGPiston] =0;
 
 
 task stackCone(){
+
+		if(vexRT[Btn8U]==1){
 				coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
@@ -341,6 +345,7 @@ task stackCone(){
     		SensorValue(claw) = 0;
 				wait1Msec(500);
 				coneLift('D',1000);  // dont works perfectly
+			}
 
 			return;
 }
@@ -508,27 +513,29 @@ task usercontrol()
     	SensorValue[claw] = 0;
     }
 
-    //crazy try
+    //stack cones
     	if(vexRT[Btn8U] == 1){
 
 				//startTask(stackCone);
-    		//startTask(base);
+    		startTask(base);
+
 
     		coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
     		stack(2100);
     		SensorValue(claw) = 1;
-    		wait1Msec(500);
+    		wait1Msec(250);
     		hightControl(2100);
     		SensorValue(claw) = 0;
-				wait1Msec(500);
-				coneLift('D',1000);  // dont works perfectly
+				wait1Msec(250);
+				coneLift('D',2350);
 
 
-				//EndTimeSlice();
 
-				return;
+				EndTimeSlice();
+
+
 
     	}
 
