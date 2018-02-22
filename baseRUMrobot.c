@@ -27,6 +27,8 @@
 ////////////////////////////////	 FUNCTIONS  	/////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
+	int liftHight[14];
+
 /////////////////////////////////////////
 ///////	RESETING Gyro	///////////////
 /////////////////////////////////////////
@@ -155,6 +157,7 @@ bool run = false;
 /////////////////////////////////////////
 
 
+
 /////////////////////////////////////////
 /////////// CONE LIFT /////////////////////
 /////////////////////////////////////////
@@ -168,8 +171,8 @@ void coneLift(char direction, int height){
 				}
 			}
 
-		else if(direction == 'D'){
-			while(SensorValue(chainBar)>height){
+		if(direction == 'D'){
+			while((SensorValue(chainBar)>height)){
 				motor(chainPivot) = 127;
 			}
 		}
@@ -222,8 +225,8 @@ bool getStackConeIsRunning(){
 }
 
 task stackCone(){
-	//while(true){//task is stopped at end
-				setStackConeListener(false);
+
+		if(vexRT[Btn8U]==1){
 				coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
@@ -234,9 +237,9 @@ task stackCone(){
     		SensorValue(claw) = 0;
 				wait1Msec(500);
 				coneLift('D',1000);  // dont works perfectly
-				setStackConeListener(true);
-			//}
-			//return;
+			}
+
+			return;
 }
 
 task base(){
@@ -397,32 +400,30 @@ task controller(){
     	SensorValue[claw] = 0;
     }
 
-    //crazy try
+    //stack cones
     	if(vexRT[Btn8U] == 1){
 
-    	//startTask(stackCone);
-    	//startTask(base);
-    		if(!getStackConeIsRunning())	startTask(stackCone);
-    		//startTask(base);
+				//startTask(stackCone);
+    		startTask(base);
 
-    		if(getStackConeListener())	stopTask(stackCone);
-    	/********************
+
     		coneLift('U',700);
     		hightControl(2100);
     		coneLift('U',2900);
     		stack(2100);
     		SensorValue(claw) = 1;
-    		wait1Msec(500);
+    		wait1Msec(250);
     		hightControl(2100);
     		SensorValue(claw) = 0;
-				wait1Msec(500);
-				coneLift('D',1000);  // dont works perfectly
+				wait1Msec(250);
+				coneLift('D',2350);
 
 				/********************/
 
-				//EndTimeSlice();
 
-				//return;
+				EndTimeSlice();
+
+
 
     	}
     	AbortTimeSlice();
