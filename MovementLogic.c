@@ -1,6 +1,20 @@
 #include "MotorAndSensorConfig.c"
 #include "EncoderLogic.c"
 
+//TODO:
+//	Ideas:
+//	-	for reusable logic functions between robots (to avoid copy paste)
+//		I suggest making a global array of the names of every motor variable.
+//		This way the array's values will be the ones used in each function instead
+//		of each individual motor name placed in the motor[] boxes.
+//		Example:
+//			in the main file (the one that gets compiled into the robot) a global array
+//			like this one will be created
+//				tMotor baseMotors[] = {motor1, motor2, motor3, etc.};
+//			these will need to be added in a format like say back first from left tor right or something
+//			so far its just an idea, it needs development
+//			(Javier)
+
 //constants
 #define MOTOR_STOP 30 //speed at which motors dont move the robot anymore
 
