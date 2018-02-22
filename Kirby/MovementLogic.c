@@ -1,6 +1,10 @@
 #include "MotorAndSensorConfig.c"
 #include "EncoderLogic.c"
 
+//constants
+#define MOTOR_STOP 30 //speed at which motors dont move the robot anymore
+
+//globals
 int direction = 1;
 
 //motor movement
@@ -19,7 +23,7 @@ void suddenBrakes(){
 	baseMove(0,0);
 }
 
-void gradualBrakes(int currentSpeed, int distRemaining, int origDist){
+int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
 	//for use when moving forward or back at speed
 	//stops the robot gradually so it doesnt tip over
 
@@ -27,8 +31,19 @@ void gradualBrakes(int currentSpeed, int distRemaining, int origDist){
 
 	int speed = currentSpeed;
 
-	if(distRemaining < origDist/4){
-		speed = origDist*(sqrt(distRemaining));
+	if(origDist == 0){
+		return 0;
+	}
+
+	if(distRemaining < origDist/4
+			&& currentSpeed > MOTOR_STOP){
+
+		float reductCoeff = distRemaining/origDist;
+		float decimalSpeed = reductCoeff * currentSpeed;
+		speed = (int) ceil(decimalSpeed);
+	}
+	else if(currentSpeed < MOTOR_STOP){
+		return 0;
 	}
 
 	//returns new speed
