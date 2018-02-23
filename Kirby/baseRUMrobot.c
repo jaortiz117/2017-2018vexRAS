@@ -301,7 +301,9 @@ task autonomous()
   // ..........................................................................
 
   // Remove this function call once you have "real" code.
-  AutonomousCodePlaceholderForTesting();
+  //AutonomousCodePlaceholderForTesting();
+
+	auton1(left);
 }
 
 /*---------------------------------------------------------------------------*/

@@ -3,15 +3,47 @@
 
 int direction = 1;
 //TODO make 2 different braking functions
+
+void baseMove(int leftSide, int rightSide){
+	motor[baseTopLeft]= -leftSide;
+	motor[baseTopRight]= -rightSide;
+	motor[baseBottomLeft]= -leftSide;
+	motor[baseBottomRight]= -rightSide;
+}
 void suddenBrakes(){
 	//for use when turning
 	//stops instantly
+
+	baseMove(0,0);
 }
 
-void gradualBrakes(){
-	//for use when moving forward or back
-	//stops the robot gradually so it doesnt tip over
+int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
+  //for use when moving forward or back at speed
+  //stops the robot gradually so it doesnt tip over
+
+  //runs on every iteration of moveForward loop
+
+  int speed = currentSpeed;
+
+  if(origDist == 0){
+    return 0;
+  }
+
+  if(distRemaining < origDist/4
+      && currentSpeed > MOTOR_STOP){
+
+    float reductCoeff = distRemaining/origDist;
+    float decimalSpeed = reductCoeff * currentSpeed;
+    speed = (int) ceil(decimalSpeed);
+  }
+  else if(currentSpeed < MOTOR_STOP){
+    return 0;
+  }
+
+  //returns new speed
+  return speed;
 }
+
 
 /*************************
 	Move Forward
