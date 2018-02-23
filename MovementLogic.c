@@ -1,6 +1,10 @@
 #include "MotorAndSensorConfig.c"
 #include "EncoderLogic.c"
 
+//consants
+#define MOTOR_STOP 30
+
+//globals
 int direction = 1;
 //TODO make 2 different braking functions
 

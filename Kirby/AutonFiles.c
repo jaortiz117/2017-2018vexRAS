@@ -2,6 +2,7 @@
 #include "../MovementLogic.c"
 #include "../SensorLogic.h"
 #include "../EncoderLogic.c"
+#include "baseRUMrobot.c"// temporary
 
 //constants
 
