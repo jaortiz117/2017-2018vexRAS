@@ -98,6 +98,8 @@ void moveFrontIN(float inches){
 	moveForward(inToTicks(inches));
 }
 
+//TODO: move front with speed percentage
+
 /**************************
 	Move Back
 ***************************/

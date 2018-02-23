@@ -188,7 +188,7 @@ void coneLift(char direction, int height){
 /////////////////////////////////////////
 /////////// MOVING GOAL /////////////////
 /////////////////////////////////////////
-void moveMG(char direction, int height){
+void moveMG(char direction, int height){//height param needs to be removed
 
 SensorValue[MGPiston] =0;
 
@@ -303,7 +303,7 @@ task autonomous()
   // Remove this function call once you have "real" code.
   //AutonomousCodePlaceholderForTesting();
 
-	auton1(left);
+	auton1();
 }
 
 /*---------------------------------------------------------------------------*/

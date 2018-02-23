@@ -33,7 +33,33 @@ void auton1(){
   //(if we have time, search a cone and stack it in the stationary goal)
   // int dir = side.dir;
 
-  moveFrontIN(24.0);
+  moveFrontIN(36.0);
   Giro('L', 30);
-  
+  highControl(1500);
+  moveMG('D', 0);
+  moveFrontIN(12.0);
+  Giro('R', 30);
+  moveFrontIN(6.0);
+  moveMG('U', 1000);
+
+  //stack cone //TODO: make into function
+  coneLift('U',700);
+  hightControl(2100);
+  coneLift('U',2900);
+  stack(2100);
+  SensorValue(claw) = 1;
+  wait1Msec(250);
+  hightControl(2100);
+  SensorValue(claw) = 0;
+  wait1Msec(250);
+  coneLift('D',2350);
+  /////////////////////////
+
+  Giro('R', 180);
+  moveFrontIN(54.0);
+  Giro('R', 45);
+  moveFrontIN(12.0);
+  moveMG('D', 0);
+  moveBackward(inToTicks(12.0));//needs a funct
+
 }
