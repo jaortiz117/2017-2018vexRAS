@@ -1,8 +1,9 @@
 #pragma config(Sensor, dgtl1,  piston,         sensorDigitalOut)
 #pragma config(Motor,  port1,           baseBottomLeft, tmotorVex393HighSpeed_HBridge, openLoop, reversed)
-#pragma config(Motor,  port2,           baseTopLeft,   tmotorVex393HighSpeed_MC29, openLoop, reversed)
-#pragma config(Motor,  port3,           torreFrontLeft, tmotorVex393_MC29, openLoop, reversed)
-#pragma config(Motor,  port4,           torreBackLeft, tmotorVex393_MC29, openLoop, reversed)
+#pragma config(Motor,  port2,           baseTopLeft,   tmotorVex393HighSpeed_MC29, openLoop)
+#pragma config(Motor,  port3,           torreFrontLeft, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           torreBackLeft, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           leverArm,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           torreBackRight, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           torreFrontRight, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port9,           baseTopRight,  tmotorVex393HighSpeed_MC29, openLoop)
@@ -104,13 +105,14 @@ task usercontrol()
   	motor[baseBottomRight] = -vexRT[Ch3] + vexRT[Ch4];
   	motor[baseTopRight] = -vexRT[Ch3] + vexRT[Ch4];
 
-  	if(vexRT[Btn6U] == 1 && vexRT[Btn6D] == 0){
+  	//lift
+  	if(vexRT[Btn6U] == 0 && vexRT[Btn6D] == 1){
   		motor(torreBackLeft) = 127;
   		motor(torreFrontLeft) = 127;
   		motor(torreBackRight) = -127;
   		motor(torreFrontRight) = -127;
   	}
-  	else if(vexRT[Btn6D] == 1 && vexRT[Btn6U] == 0){
+  	else if(vexRT[Btn6D] == 0 && vexRT[Btn6U] == 1){
   		motor(torreBackLeft) = -127;
   		motor(torreFrontLeft) = -127;
   		motor(torreBackRight) = 127;
@@ -121,6 +123,17 @@ task usercontrol()
   		motor(torreFrontLeft) = 0;
   		motor(torreBackRight) = 0;
   		motor(torreFrontRight) = 0;
+  	}
+
+  	//arm
+  	if(vexRT[Btn5U] == 0 && vexRT[Btn5D] == 1){
+  		motor(leverArm) = 127;
+  	}
+  	else if(vexRT[Btn5D] == 0 && vexRT[Btn5U] == 1){
+  		motor(leverArm) = -127;
+  	}
+  	else{
+  		motor(leverArm) = 0;
   	}
 
   }
