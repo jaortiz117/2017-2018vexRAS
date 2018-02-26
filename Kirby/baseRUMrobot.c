@@ -30,21 +30,6 @@
 	int liftHight[14];
 
 /////////////////////////////////////////
-///////	RESETING Gyro	///////////////
-/////////////////////////////////////////
-
-void resetGyro()
-{
-	 SensorType[gyro] = sensorNone;
- 		wait1Msec(1000);
- 	 SensorType[gyro] = sensorGyro;
- 		wait1Msec(1000);
-}
-/////////////////////////////////////////
-///////	END RESETING Gyro	///////////
-/////////////////////////////////////////
-
-/////////////////////////////////////////
 ///////////  TURN   /////////////////////
 /////////////////////////////////////////
 
@@ -52,44 +37,44 @@ int gyroscope;
 
 void Giro(char Side, int value){//FUNCION#8: Giro
 
-SensorType[gyro] = sensorNone;
-SensorType[gyro] = sensorGyro;
-wait1Msec(1500);
-gyroscope = abs(SensorValue[gyro]);
-
-if(Side=='L'){
-while(gyroscope < value){
-
-  gyroscope = abs(SensorValue[gyro]);
-		motor[baseTopLeft]= 60;
-   	motor[baseTopRight]= 60;
-   	motor[baseBottomLeft]= 60;
-   	motor[baseBottomRight]= 60;
-}
-	motor[baseTopLeft]= -15;
-  motor[baseTopRight]= -15;
-  motor[baseBottomLeft]= -15;
-  motor[baseBottomRight]= -15;
-wait1Msec(250);
-
-}
-
-else if(Side=='R'){
-while(gyroscope < value){
-
+	SensorType[gyro] = sensorNone;
+	SensorType[gyro] = sensorGyro;
+	wait1Msec(1500);
 	gyroscope = abs(SensorValue[gyro]);
-		motor[baseTopLeft]= -60;
-    motor[baseTopRight]= -60;
-    motor[baseBottomLeft]= -60;
-    motor[baseBottomRight]= -60;
-}
-	motor[baseTopLeft]= 15;
-  motor[baseTopRight]= 15;
-  motor[baseBottomLeft]= 15;
-  motor[baseBottomRight]= 15;
-wait1Msec(250);
 
-}
+	if(Side=='L'){
+		while(gyroscope < value){
+
+			gyroscope = abs(SensorValue[gyro]);
+			motor[baseTopLeft]= 60;
+			motor[baseTopRight]= 60;
+			motor[baseBottomLeft]= 60;
+			motor[baseBottomRight]= 60;
+		}
+		motor[baseTopLeft]= -15;
+		motor[baseTopRight]= -15;
+		motor[baseBottomLeft]= -15;
+		motor[baseBottomRight]= -15;
+		wait1Msec(250);
+
+	}
+
+	else if(Side=='R'){
+		while(gyroscope < value){
+
+			gyroscope = abs(SensorValue[gyro]);
+			motor[baseTopLeft]= -60;
+			motor[baseTopRight]= -60;
+			motor[baseBottomLeft]= -60;
+			motor[baseBottomRight]= -60;
+		}
+		motor[baseTopLeft]= 15;
+		motor[baseTopRight]= 15;
+		motor[baseBottomLeft]= 15;
+		motor[baseBottomRight]= 15;
+		wait1Msec(250);
+
+	}
 }
 
 /////////////////////////////////////////
