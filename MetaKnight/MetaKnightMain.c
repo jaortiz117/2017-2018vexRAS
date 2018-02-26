@@ -136,5 +136,15 @@ task usercontrol()
   		motor(leverArm) = 0;
   	}
 
+  	//piston pusher
+  	if(vexRT(Btn7D) == 0){
+  		SensorValue[piston] = 1;
+  		wait1Msec(500);
+  		SensorValue[piston] = 0;
+  	}
+  	else{
+  		SensorValue[piston] = 0;
+  	}
+
   }
 }
