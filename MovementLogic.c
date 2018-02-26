@@ -2,7 +2,7 @@
 #include "EncoderLogic.c"
 
 //constants
-#define MOTOR_STOP 30
+#define MOTOR_STOP 40
 
 //globals
 int direction = 1;//why is this here???
