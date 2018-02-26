@@ -39,15 +39,16 @@ int getAbsRight(){
 	return absRight;
 }
 
+float getRevs(int ticks){
+	return ticks/TICKS_REV;
+}
+
 float getSpeed(int clicks){// rev/s
+	//TODO
 	//calculate a motor's speed
 	float speed;
 
 	return speed;
-}
-
-float getRevs(int ticks){
-	return ticks/TICKS_REV;
 }
 
 /////////////
@@ -83,5 +84,3 @@ int inToTicks(float inches){
 
 	return ticks;
 }
-
-//TODO create distTraveled, IN, CM, funct
