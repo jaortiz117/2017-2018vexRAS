@@ -137,7 +137,7 @@ task usercontrol()
   	}
 
   	//piston pusher
-  	if(vexRT(Btn7D) == 0){
+  	if(vexRT(Btn7D) == 1){
   		SensorValue[piston] = 1;
   		wait1Msec(500);
   		SensorValue[piston] = 0;
