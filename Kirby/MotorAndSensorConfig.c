@@ -23,3 +23,5 @@
 //TODO change this file's name to Main.c
 
 #include "baseRUMrobot.c"// base code for everything competition related
+
+//TODO output an array of motors and their connections so logic files can be used everywhere

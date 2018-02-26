@@ -47,7 +47,7 @@ float getSpeed(int clicks){// rev/s
 	//TODO
 	//calculate a motor's speed
 	float speed;
-
+	
 	return speed;
 }
 
