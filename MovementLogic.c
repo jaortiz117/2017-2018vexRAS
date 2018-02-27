@@ -194,3 +194,170 @@ void move(int ticks, int speed){
 
 //TODO place side equalizer appart from the move functions using encoder difference
 //this way we can make equalizing more dynamic and that way more efficient
+
+
+/////////////////////////////////////////
+///////////  TURN   /////////////////////
+/////////////////////////////////////////
+
+int gyroscope;
+
+void Giro(char Side, int value){//FUNCION#8: Giro
+
+	SensorType[gyro] = sensorNone;
+	SensorType[gyro] = sensorGyro;
+	wait1Msec(1500);
+	gyroscope = abs(SensorValue[gyro]);
+
+	if(Side=='L'){
+		while(gyroscope < value){
+
+			gyroscope = abs(SensorValue[gyro]);
+			motor[baseTopLeft]= 60;
+			motor[baseTopRight]= 60;
+			motor[baseBottomLeft]= 60;
+			motor[baseBottomRight]= 60;
+		}
+		motor[baseTopLeft]= -15;
+		motor[baseTopRight]= -15;
+		motor[baseBottomLeft]= -15;
+		motor[baseBottomRight]= -15;
+		wait1Msec(250);
+
+	}
+
+	else if(Side=='R'){
+		while(gyroscope < value){
+
+			gyroscope = abs(SensorValue[gyro]);
+			motor[baseTopLeft]= -60;
+			motor[baseTopRight]= -60;
+			motor[baseBottomLeft]= -60;
+			motor[baseBottomRight]= -60;
+		}
+		motor[baseTopLeft]= 15;
+		motor[baseTopRight]= 15;
+		motor[baseBottomLeft]= 15;
+		motor[baseBottomRight]= 15;
+		wait1Msec(250);
+
+	}
+}
+
+/////////////////////////////////////////
+///////////  END TURN  ////////////////
+/////////////////////////////////////////
+
+/////////////////////////////////////////
+/////////High ultra control /////////////
+/////////////////////////////////////////
+
+void hightControl(int maxHigh){
+//lowest point 670
+//max point 2100
+bool run = false;
+		while((SensorValue(highDetector)<16) && (SensorValue(lift)<maxHigh)){
+	   	  motor(torreTopRight)= -127;
+	   	  motor(torreTopLeft) = 127;
+	    	motor(torreBottomLeft)= -127;
+	    	motor(torreBottomRight)= 127;
+
+	    	run = true;
+	    }
+
+	    if (run){
+	    	motor(torreTopRight)= -50;
+	    	 motor(torreTopLeft) = 50;
+	    	motor(torreBottomLeft)= -50;
+	    	motor(torreBottomRight)= 50;
+	    }
+
+}
+/////////////////////////////////////////
+/////////// END High ultra control //////
+/////////////////////////////////////////
+
+
+/***********************************************
+FROM THIS POINT ON THESE FUNCTIONS SHOULD BE IN AutonFiles.c
+THEY ARE PLACED HERE FOR THE TIME BEING UNTIL THEY ARE ABSTRACTED
+************************************************/
+/////////////////////////////////////////
+/////////// PUT CONE IN STACK///// //////
+/////////////////////////////////////////
+
+void stack (int high){
+bool run = false;
+	if(SensorValue(lift)>750){
+		while((SensorValue(highDetector)>16) && (SensorValue(lift)<high)){
+	   	  motor(torreTopRight)= 60;
+	   	  motor(torreTopLeft) = -60;
+	    	motor(torreBottomLeft)= 60;
+	    	motor(torreBottomRight)= -60;
+
+	    	run = true;
+	    }
+	  }
+
+
+	    if (run){
+	    	motor(torreTopRight)= -50;
+	    	 motor(torreTopLeft) = 50;
+	    	motor(torreBottomLeft)= -50;
+	    	motor(torreBottomRight)= 50;
+	    }
+}
+
+/////////////////////////////////////////
+/////////// END PUT CONE IN STACK/ //////
+/////////////////////////////////////////
+
+/////////////////////////////////////////
+/////////// CONE LIFT /////////////////////
+/////////////////////////////////////////
+
+void coneLift(char direction, int height){
+	//lowest point 0
+	//max high 2900-3050
+		if(direction == 'U'){
+				while(SensorValue(chainBar)<height){
+					motor(chainPivot) = -90;
+				}
+			}
+
+		if(direction == 'D'){
+			while((SensorValue(chainBar)>height)){
+				motor(chainPivot) = 127;
+			}
+		}
+
+		motor(chainPivot) = 0;
+	}
+
+/////////////////////////////////////////
+/////////// END CONE LIFT/////////// ////
+/////////////////////////////////////////
+
+/////////////////////////////////////////
+/////////// MOVING GOAL /////////////////
+/////////////////////////////////////////
+void moveMG(char direction, int height){//height param needs to be removed
+
+SensorValue[MGPiston] =0;
+
+		while(SensorValue[movingGoal]<height && 'U'){
+		   		 motor[baseMG]= -127;
+		 }
+
+
+		while(SensorValue[movingGoal]>height && 'D'){
+		    motor[baseMG]= 127;
+ 		}
+
+
+		motor[baseMG]= 0;
+
+}
+/////////////////////////////////////////
+/////////// END MOVING GOAL//////////////
+/////////////////////////////////////////
