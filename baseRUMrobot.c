@@ -404,12 +404,46 @@ void pre_auton()
 
 task autonomous()
 {
-  // ..........................................................................
-  // Insert user code here.
-  // ..........................................................................
 
-  // Remove this function call once you have "real" code.
-  AutonomousCodePlaceholderForTesting();
+	//Red autonomous pre loads side
+  //	moveMG('D',0);  //potentiometer its reading 0 before its reach lowest point
+		motor[baseMG]= 127;
+		wait1Msec(2250);
+		motor[baseMG]= 0;
+		Foward(1450);
+		moveMG('U', 1630);
+		coneLift('U',2900);
+		SensorValue(claw)=1;
+		wait1Msec(500);
+		SensorValue(claw)=0;
+		coneLift('D',700);
+	/*Foward(150);
+		coneLift('D',0);
+		coneLift('U',700);
+    hightControl(2100);
+    coneLift('U',2900);
+    stack(2100);
+    SensorValue(claw) = 1;
+    wait1Msec(250);
+    hightControl(2100);
+    SensorValue(claw) = 0;
+		wait1Msec(250);
+		coneLift('D',2350);
+		Backwards(600);
+		Giro('R',450);
+		Foward(150);
+		Giro('R',450);
+		moveMG('D',200);
+		Foward(300);
+		Backwards(500);
+		Giro('L',450);
+		Foward(200);
+		Giro('L',450);
+		moveMG('D',0);
+		Foward(500);
+		moveMG('U',1630);*/
+
+
 }
 
 /*---------------------------------------------------------------------------*/
