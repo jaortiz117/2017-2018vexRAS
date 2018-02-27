@@ -279,7 +279,7 @@ bool run = false;
 
 
 /***********************************************
-FROM THIS POINT ON THESE FUNCTIONS SHOULD BE IN AutonFiles.c
+FROM THIS POINT ON THESE FUNCTIONS SHOULD BE IN AutomatedMotions.c
 THEY ARE PLACED HERE FOR THE TIME BEING UNTIL THEY ARE ABSTRACTED
 ************************************************/
 /////////////////////////////////////////
