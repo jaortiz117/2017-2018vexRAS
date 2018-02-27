@@ -7,12 +7,15 @@
 //globals
 int direction = 1;//why is this here???
 
+//function to move the base, controlled by speed
 void baseMove(int leftSide, int rightSide){
 	motor[baseTopLeft]= -leftSide;
 	motor[baseTopRight]= -rightSide;
 	motor[baseBottomLeft]= -leftSide;
 	motor[baseBottomRight]= -rightSide;
 }
+
+//stops base
 void suddenBrakes(){
 	//for use when turning
 	//stops instantly
@@ -20,6 +23,8 @@ void suddenBrakes(){
 	baseMove(0,0);
 }
 
+//returns new speed based on distance remaining. Used when going to fast
+//to avoid exceeding desired distance
 int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
   //for use when moving forward or back at speed
   //stops the robot gradually so it doesnt tip over
@@ -52,6 +57,7 @@ int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
 	Move Forward
 *************************/
 
+//legacy move forward function
 void moveForward(int ticks)//ticks: dist in ticks
 {
 	resetEncoders();
@@ -84,7 +90,7 @@ void moveForward(int ticks)//ticks: dist in ticks
 }
 
 //use inches as input to move
-void moveFrontIN(float inches){
+void moveFrontIN(float inches){//TODO still using legacy functs must change
 	moveForward(inToTicks(inches));
 }
 
@@ -93,6 +99,8 @@ void moveFrontIN(float inches){
 /**************************
 	Move Back
 ***************************/
+
+//legacy reverse funct
 void moveBackward(int ticks)//I think this is redundant
 {
 	resetEncoders();
@@ -136,6 +144,8 @@ void moveBackward(int ticks)//I think this is redundant
   motor[baseBottomRight]= 0;
 }
 
+
+//new functions
 /********************
 move - basic movement functions
 	ticks - is a direction vector (includes direction)
@@ -195,7 +205,10 @@ void move(int ticks, int speed){
 //TODO place side equalizer appart from the move functions using encoder difference
 //this way we can make equalizing more dynamic and that way more efficient
 
-
+/************************************
+TODO from this point on code is legacy, and not scalable
+has to be modified
+************************************/
 /////////////////////////////////////////
 ///////////  TURN   /////////////////////
 /////////////////////////////////////////
