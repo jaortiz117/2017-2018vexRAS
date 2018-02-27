@@ -246,7 +246,7 @@ void rotate(char side, int angle){//FUNCION#8: Giro
 
 	while(gyroToDegree(getAbsGyro(gyro)) < angle){
 
-		int distRemaining = angle - gyroToDegree(getAbsGyro(gyro);
+		int distRemaining = angle - gyroToDegree(getAbsGyro(gyro));
 		speed = gradualBrakes(speed, distRemaining, angle);
 
 		if(speed == 0){
