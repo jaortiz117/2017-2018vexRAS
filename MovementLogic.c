@@ -1,17 +1,21 @@
 #include "MotorAndSensorConfig.c"
+#include "SensorLogic.h"
 #include "EncoderLogic.c"
 
 //constants
 #define MOTOR_STOP 40
+#define ROTATION 60
+#define LEFT 'L'
+#define RIGHT 'R'
 
 //globals
 int direction = 1;//why is this here???
 
 //function to move the base, controlled by speed
 void baseMove(int leftSide, int rightSide){
-	motor[baseTopLeft]= -leftSide;
+	motor[baseTopLeft]= leftSide;
 	motor[baseTopRight]= -rightSide;
-	motor[baseBottomLeft]= -leftSide;
+	motor[baseBottomLeft]= leftSide;
 	motor[baseBottomRight]= -rightSide;
 }
 
@@ -23,8 +27,15 @@ void suddenBrakes(){
 	baseMove(0,0);
 }
 
-//returns new speed based on distance remaining. Used when going to fast
 //to avoid exceeding desired distance
+/**********************************************
+gradualBrakes - returns new speed based on distance remaining. Used when going to fast
+	currentSpeed - speed currently sent to motors
+	distRemaining - distance remaining to be traveled, can be in any unit
+	origDist - distance to travel originally
+
+	distRemaining and origDist HAVE to be the same units
+**********************************************/
 int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
   //for use when moving forward or back at speed
   //stops the robot gradually so it doesnt tip over
@@ -45,7 +56,8 @@ int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
     speed = (int) ceil(decimalSpeed);
   }
   else if(currentSpeed <= MOTOR_STOP){
-    return MOTOR_STOP;
+    //return MOTOR_STOP;
+		return 0;
   }
 
   //returns new speed
@@ -114,26 +126,26 @@ void moveBackward(int ticks)//I think this is redundant
 
 		if(getAbsLeft() > getAbsRight())
 		{
-			motor[baseTopLeft]= 58;
+			motor[baseTopLeft]= -58;
     	motor[baseTopRight]= 60;
-    	motor[baseBottomLeft]= 58;
+    	motor[baseBottomLeft]= -58;
     	motor[baseBottomRight]= 60;
 
 		}
   	else if(getAbsLeft() < getAbsRight())
 		{
 
-			motor[baseTopLeft]= 60;
+			motor[baseTopLeft]= -60;
     	motor[baseTopRight]= 58;
-    	motor[baseBottomLeft]= 60;
+    	motor[baseBottomLeft]= -60;
     	motor[baseBottomRight]= 58;
 
 		}
 		else if(getAbsLeft()==getAbsRight())
 		{
-			motor[baseTopLeft]= 60;
+			motor[baseTopLeft]= -60;
     	motor[baseTopRight]= 60;
-    	motor[baseBottomLeft]= 60;
+    	motor[baseBottomLeft]= -60;
     	motor[baseBottomRight]= 60;
 		}
 	}
@@ -147,7 +159,7 @@ void moveBackward(int ticks)//I think this is redundant
 
 //new functions
 /********************
-move - basic movement functions
+move - basic linear movement function
 	ticks - is a direction vector (includes direction)
 	speed - speed of motors 0 - 127 inclusive
 ********************/
@@ -165,7 +177,7 @@ void move(int ticks, int speed){
 		speed = abs(speed);
 	}
 
-	if(speed<MOTOR_STOP){
+	if(speed<=MOTOR_STOP){
 		baseMove(0,0);
 		return;
 	}
@@ -178,7 +190,7 @@ void move(int ticks, int speed){
 		speed = gradualBrakes(speed, distRemaining, ticks);
 
 		if (speed == 0) {	//try this first since it might give a bug
-			// try uyseing a getSpeed function instead
+			// try using a getSpeed function instead
 			break;
 		}
 
@@ -205,8 +217,69 @@ void move(int ticks, int speed){
 //TODO place side equalizer appart from the move functions using encoder difference
 //this way we can make equalizing more dynamic and that way more efficient
 
+/********************
+rotate - basic turning function
+	side - direction of rotation LEFT (CCW) or RIGHT (CW)
+	angle - degrees of rotation
+********************/
+void rotate(char side, int angle){//FUNCION#8: Giro
+
+	// SensorType[gyro] = sensorNone;
+	// SensorType[gyro] = sensorGyro;
+	// wait1Msec(1500);
+	// gyroscope = abs(SensorValue[gyro]);
+	int r = 1;
+	int l = 1;
+	int speed = ROTATION;
+
+	if(side==LEFT){
+		l = -1;
+	}
+	else{
+		r = -1;
+	}
+
+	if(speed<MOTOR_STOP){
+		baseMove(0,0);
+		return;
+	}
+
+	while(gyroToDegree(getAbsGyro(gyro)) < angle){
+
+		int distRemaining = angle - gyroToDegree(getAbsGyro(gyro);
+		speed = gradualBrakes(speed, distRemaining, angle);
+
+		if(speed == 0){
+			break;
+		}
+		baseMove(l*speed, r*speed);
+	}
+
+	baseMove(0,0);
+	// motor[baseTopLeft]= -15;
+	// motor[baseTopRight]= -15;
+	// motor[baseBottomLeft]= -15;
+	// motor[baseBottomRight]= -15;
+	// wait1Msec(250);
+
+	// while(getAbsGyro(gyro) < angle){
+	//
+	// 	//gyroscope = abs(SensorValue[gyro]);
+	// 	motor[baseTopLeft]= -60;
+	// 	motor[baseTopRight]= -60;
+	// 	motor[baseBottomLeft]= -60;
+	// 	motor[baseBottomRight]= -60;
+	// }
+	// motor[baseTopLeft]= 15;
+	// motor[baseTopRight]= 15;
+	// motor[baseBottomLeft]= 15;
+	// motor[baseBottomRight]= 15;
+	// wait1Msec(250);
+
+}
+
 /************************************
-TODO from this point on code is legacy, and not scalable
+TODO from this point on code is legacy, and not scalable.
 has to be modified
 ************************************/
 /////////////////////////////////////////
