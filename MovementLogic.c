@@ -255,7 +255,7 @@ void rotate(char side, int angle){//FUNCION#8: Giro
 		baseMove(l*speed, r*speed);
 	}
 
-	baseMove(0,0);
+	suddenBrakes();
 	// motor[baseTopLeft]= -15;
 	// motor[baseTopRight]= -15;
 	// motor[baseBottomLeft]= -15;
