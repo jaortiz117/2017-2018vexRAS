@@ -15,7 +15,7 @@
 
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
-//#include "AutonFiles.c"
+#include "AutonFiles.c"
 #include "../MovementLogic.c"
 #include "../SensorLogic.h"
 
@@ -125,7 +125,7 @@ task autonomous()
   // Remove this function call once you have "real" code.
   //AutonomousCodePlaceholderForTesting();
 
-	//auton1();
+	auton1();
 }
 
 /*---------------------------------------------------------------------------*/

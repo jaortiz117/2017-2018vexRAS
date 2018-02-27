@@ -36,7 +36,7 @@ void auton1(){
 
   moveFrontIN(36.0);
   Giro('L', 30);
-  highControl(1500);
+  hightControl(1500);
   moveMG('D', 0);
   moveFrontIN(12.0);
   Giro('R', 30);
