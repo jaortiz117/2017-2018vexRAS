@@ -224,10 +224,6 @@ rotate - basic turning function
 ********************/
 void rotate(char side, int angle){//FUNCION#8: Giro
 
-	// SensorType[gyro] = sensorNone;
-	// SensorType[gyro] = sensorGyro;
-	// wait1Msec(1500);
-	// gyroscope = abs(SensorValue[gyro]);
 	int r = 1;
 	int l = 1;
 	int speed = ROTATION;
@@ -244,6 +240,8 @@ void rotate(char side, int angle){//FUNCION#8: Giro
 		return;
 	}
 
+	restGyro();
+
 	while(gyroToDegree(getAbsGyro(gyro)) < angle){
 
 		int distRemaining = angle - gyroToDegree(getAbsGyro(gyro));
@@ -256,25 +254,6 @@ void rotate(char side, int angle){//FUNCION#8: Giro
 	}
 
 	suddenBrakes();
-	// motor[baseTopLeft]= -15;
-	// motor[baseTopRight]= -15;
-	// motor[baseBottomLeft]= -15;
-	// motor[baseBottomRight]= -15;
-	// wait1Msec(250);
-
-	// while(getAbsGyro(gyro) < angle){
-	//
-	// 	//gyroscope = abs(SensorValue[gyro]);
-	// 	motor[baseTopLeft]= -60;
-	// 	motor[baseTopRight]= -60;
-	// 	motor[baseBottomLeft]= -60;
-	// 	motor[baseBottomRight]= -60;
-	// }
-	// motor[baseTopLeft]= 15;
-	// motor[baseTopRight]= 15;
-	// motor[baseBottomLeft]= 15;
-	// motor[baseBottomRight]= 15;
-	// wait1Msec(250);
 
 }
 
