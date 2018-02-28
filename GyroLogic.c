@@ -16,7 +16,7 @@ Constants
 //setters
 
 //RESETS GYRO TO DEFAULT VALUE
-void resetGyro()
+void resetGyro(tSensors gyro)
 {
 	//???
 	SensorType[gyro] = sensorNone;
