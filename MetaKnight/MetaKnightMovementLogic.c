@@ -143,40 +143,40 @@ rotate - basic turning function
 	side - direction of rotation LEFT (CCW) or RIGHT (CW)
 	angle - degrees of rotation
 ********************/
-void rotate(char side, int angle){//FUNCION#8: Giro
-
-	int r = 1;
-	int l = 1;
-	int speed = ROTATION;
-
-	if(side==LEFT){
-		l = -1;
-	}
-	else{
-		r = -1;
-	}
-
-	if(speed<MOTOR_STOP){
-		baseMove(0,0);
-		return;
-	}
-
-	restGyro();
-
-	while(gyroToDegree(getAbsGyro(gyro)) < angle){
-
-		int distRemaining = angle - gyroToDegree(getAbsGyro(gyro));
-		speed = gradualBrakes(speed, distRemaining, angle);
-
-		if(speed == 0){
-			break;
-		}
-		baseMove(l*speed, r*speed);
-	}
-
-	suddenBrakes();
-
-}
+// void rotate(char side, int angle){//FUNCION#8: Giro
+//
+// 	int r = 1;
+// 	int l = 1;
+// 	int speed = ROTATION;
+//
+// 	if(side==LEFT){
+// 		l = -1;
+// 	}
+// 	else{
+// 		r = -1;
+// 	}
+//
+// 	if(speed<MOTOR_STOP){
+// 		baseMove(0,0);
+// 		return;
+// 	}
+//
+// 	restGyro();
+//
+// 	while(gyroToDegree(getAbsGyro(gyro)) < angle){
+//
+// 		int distRemaining = angle - gyroToDegree(getAbsGyro(gyro));
+// 		speed = gradualBrakes(speed, distRemaining, angle);
+//
+// 		if(speed == 0){
+// 			break;
+// 		}
+// 		baseMove(l*speed, r*speed);
+// 	}
+//
+// 	suddenBrakes();
+// 
+// }
 
 //
 // /////////////////////////////////////////
