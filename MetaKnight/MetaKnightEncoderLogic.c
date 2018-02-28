@@ -15,35 +15,8 @@ Constants
 
 
 //globals
-//similar to how instance vars are used
-int absLeft;
-int absRight;
 
 //setters
-//////////////////////////////
-//		Legacy (will only work on kirby)
-/////////////////////////////////
-void setAbsLeft(int newVal){
-	absLeft = newVal;
-}
-
-void setAbsRight(int newVal){
-	absRight = newVal;
-}
-
-//getters
-int getAbsLeft(){
-	setAbsLeft(abs(SensorValue[baseLeft]));
-	return absLeft;
-}
-
-int getAbsRight(){
-	setAbsRight(abs(SensorValue[baseRight]));
-	return absRight;
-}
-/////////////////////////////////
-//		end Legacy
-/////////////////////////////////
 
 int getAbsEncoder(tSensors encoder){
 	return abs(SensorValue[encoder]);
@@ -57,7 +30,7 @@ float getRevs(int ticks){
 float getSpeed(int clicks){// rev/s
 	//TODO
 	//calculate a motor's speed
-	float speed;
+	float speed = clicks;//for now
 
 	return speed;
 }
@@ -65,24 +38,6 @@ float getSpeed(int clicks){// rev/s
 /////////////
 ///METHODS///
 /////////////
-
-//////////////////////////////
-//		Legacy (will only work on kirby)
-/////////////////////////////////
-//RESETTING ENCODERS
-void resetEncoders()
-{
-	resetSensor(baseLeft);
-	resetSensor(baseRight);
-
-	//other encoders must be added as they are added to the robot
-
-	setAbsLeft(0);
-	setAbsRight(0);
-}
-/////////////////////////////////
-//		end Legacy
-/////////////////////////////////
 
 void encoderReset(tSensors encoder){
 

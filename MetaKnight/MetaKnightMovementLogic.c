@@ -1,11 +1,10 @@
-#include "SensorLogic.h"
-#include "EncoderLogic.c"
-
 #if META_KNIGHT
 #include "MetaKnightBaseBuild.c"
 #elif KIRBY
 #include "MotorAndSensorConfig.c"
 #endif
+
+#include "MetaKnightEncoderLogic.c"
 
 //constants
 #define MOTOR_STOP 40
@@ -19,19 +18,17 @@ int direction = 1;//why is this here???//LEGACY
 //function to move the base, controlled by speed
 void baseMove(int leftSide, int rightSide){
 
-	//Kirby
-	motor[baseTopLeft]= leftSide;
-	motor[baseTopRight]= -rightSide;
-	motor[baseBottomLeft]= leftSide;
-	motor[baseBottomRight]= -rightSide;
+	// //Kirby
+	// motor[baseTopLeft]= leftSide;
+	// motor[baseTopRight]= -rightSide;
+	// motor[baseBottomLeft]= leftSide;
+	// motor[baseBottomRight]= -rightSide;
 
 	//MetaKnight
-	if(META_KNIGHT){
-		motor[baseTopLeftMK]= leftSide;
-		motor[baseTopRightMK]= -rightSide;
-		motor[baseBottomLeftMK]= leftSide;
-		motor[baseBottomRightMK]= -rightSide;
-	}
+	motor[baseTopLeftMK]= leftSide;
+	motor[baseTopRightMK]= -rightSide;
+	motor[baseBottomLeftMK]= leftSide;
+	motor[baseBottomRightMK]= -rightSide;
 
 }
 
@@ -78,98 +75,6 @@ int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
 
   //returns new speed
   return speed;
-}
-
-
-/*************************
-	Move Forward
-*************************/
-
-//legacy move forward function
-void moveForward(int ticks)//ticks: dist in ticks
-{
-	resetEncoders();
-	direction = 1;
-
-	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
-	{
-				//setAbsLeft(abs(SensorValue[baseLeft]));
-				//setAbsRight(abs(SensorValue[baseRight]));
-
-
-		if(getAbsLeft() > getAbsRight())
-		{
-			baseMove(58, 60);
-
-		}
-  	else if(getAbsLeft() < getAbsRight())
-		{
-			baseMove(60, 58);
-
-		}
-		else if(getAbsLeft()==getAbsRight())
-		{
-			baseMove(60,60);
-		}
-	}
-
-	//use brake function instead of this stop
-			suddenBrakes();
-}
-
-//use inches as input to move
-void moveFrontIN(float inches){//TODO still using legacy functs must change
-	moveForward(inToTicks(inches));
-}
-
-//TODO: move front with speed percentage
-
-/**************************
-	Move Back
-***************************/
-
-//legacy reverse funct
-void moveBackward(int ticks)//I think this is redundant
-{
-	resetEncoders();
-	direction = -1;
-
-	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
-	{
-				//setAbsLeft(abs(SensorValue[baseBottomLeft]));
-				//setAbsRight(abs(SensorValue[baseBottomRight]));
-
-
-		if(getAbsLeft() > getAbsRight())
-		{
-			motor[baseTopLeft]= -58;
-    	motor[baseTopRight]= 60;
-    	motor[baseBottomLeft]= -58;
-    	motor[baseBottomRight]= 60;
-
-		}
-  	else if(getAbsLeft() < getAbsRight())
-		{
-
-			motor[baseTopLeft]= -60;
-    	motor[baseTopRight]= 58;
-    	motor[baseBottomLeft]= -60;
-    	motor[baseBottomRight]= 58;
-
-		}
-		else if(getAbsLeft()==getAbsRight())
-		{
-			motor[baseTopLeft]= -60;
-    	motor[baseTopRight]= 60;
-    	motor[baseBottomLeft]= -60;
-    	motor[baseBottomRight]= 60;
-		}
-	}
-	//use brakes funct instead of this stop
-	motor[baseTopLeft]= 0;
-  motor[baseTopRight]= 0;
-  motor[baseBottomLeft]= 0;
-  motor[baseBottomRight]= 0;
 }
 
 
@@ -273,177 +178,117 @@ void rotate(char side, int angle){//FUNCION#8: Giro
 
 }
 
-
-/*****************************************************************
-******************************************************************
-******************************************************************
-******************************************************************/
-/************************************
-TODO from this point on code is legacy, and not scalable.
-has to be modified
-************************************/
-/////////////////////////////////////////
-///////////  TURN   /////////////////////
-/////////////////////////////////////////
-
-int gyroscope;
-
-void Giro(char Side, int value){//FUNCION#8: Giro
-
-	SensorType[gyro] = sensorNone;
-	SensorType[gyro] = sensorGyro;
-	wait1Msec(1500);
-	gyroscope = abs(SensorValue[gyro]);
-
-	if(Side=='L'){
-		while(gyroscope < value){
-
-			gyroscope = abs(SensorValue[gyro]);
-			motor[baseTopLeft]= 60;
-			motor[baseTopRight]= 60;
-			motor[baseBottomLeft]= 60;
-			motor[baseBottomRight]= 60;
-		}
-		motor[baseTopLeft]= -15;
-		motor[baseTopRight]= -15;
-		motor[baseBottomLeft]= -15;
-		motor[baseBottomRight]= -15;
-		wait1Msec(250);
-
-	}
-
-	else if(Side=='R'){
-		while(gyroscope < value){
-
-			gyroscope = abs(SensorValue[gyro]);
-			motor[baseTopLeft]= -60;
-			motor[baseTopRight]= -60;
-			motor[baseBottomLeft]= -60;
-			motor[baseBottomRight]= -60;
-		}
-		motor[baseTopLeft]= 15;
-		motor[baseTopRight]= 15;
-		motor[baseBottomLeft]= 15;
-		motor[baseBottomRight]= 15;
-		wait1Msec(250);
-
-	}
-}
-
-/////////////////////////////////////////
-///////////  END TURN  ////////////////
-/////////////////////////////////////////
-
-/////////////////////////////////////////
-/////////High ultra control /////////////
-/////////////////////////////////////////
-
-void hightControl(int maxHigh){
-//lowest point 670
-//max point 2100
-bool run = false;
-		while((SensorValue(highDetector)<16) && (SensorValue(lift)<maxHigh)){
-	   	  motor(torreTopRight)= -127;
-	   	  motor(torreTopLeft) = 127;
-	    	motor(torreBottomLeft)= -127;
-	    	motor(torreBottomRight)= 127;
-
-	    	run = true;
-	    }
-
-	    if (run){
-	    	motor(torreTopRight)= -50;
-	    	 motor(torreTopLeft) = 50;
-	    	motor(torreBottomLeft)= -50;
-	    	motor(torreBottomRight)= 50;
-	    }
-
-}
-/////////////////////////////////////////
-/////////// END High ultra control //////
-/////////////////////////////////////////
-
-
-/***********************************************
-FROM THIS POINT ON THESE FUNCTIONS SHOULD BE IN AutomatedMotions.c
-THEY ARE PLACED HERE FOR THE TIME BEING UNTIL THEY ARE ABSTRACTED
-************************************************/
-/////////////////////////////////////////
-/////////// PUT CONE IN STACK///// //////
-/////////////////////////////////////////
-
-void stack (int high){
-bool run = false;
-	if(SensorValue(lift)>750){
-		while((SensorValue(highDetector)>16) && (SensorValue(lift)<high)){
-	   	  motor(torreTopRight)= 60;
-	   	  motor(torreTopLeft) = -60;
-	    	motor(torreBottomLeft)= 60;
-	    	motor(torreBottomRight)= -60;
-
-	    	run = true;
-	    }
-	  }
-
-
-	    if (run){
-	    	motor(torreTopRight)= -50;
-	    	 motor(torreTopLeft) = 50;
-	    	motor(torreBottomLeft)= -50;
-	    	motor(torreBottomRight)= 50;
-	    }
-}
-
-/////////////////////////////////////////
-/////////// END PUT CONE IN STACK/ //////
-/////////////////////////////////////////
-
-/////////////////////////////////////////
-/////////// CONE LIFT /////////////////////
-/////////////////////////////////////////
-
-void coneLift(char direction, int height){
-	//lowest point 0
-	//max high 2900-3050
-		if(direction == 'U'){
-				while(SensorValue(chainBar)<height){
-					motor(chainPivot) = -90;
-				}
-			}
-
-		if(direction == 'D'){
-			while((SensorValue(chainBar)>height)){
-				motor(chainPivot) = 127;
-			}
-		}
-
-		motor(chainPivot) = 0;
-	}
-
-/////////////////////////////////////////
-/////////// END CONE LIFT/////////// ////
-/////////////////////////////////////////
-
-/////////////////////////////////////////
-/////////// MOVING GOAL /////////////////
-/////////////////////////////////////////
-void moveMG(char direction, int height){//height param needs to be removed
-
-SensorValue[MGPiston] =0;
-
-		while(SensorValue[movingGoal]<height && 'U'){
-		   		 motor[baseMG]= -127;
-		 }
-
-
-		while(SensorValue[movingGoal]>height && 'D'){
-		    motor[baseMG]= 127;
- 		}
-
-
-		motor[baseMG]= 0;
-
-}
-/////////////////////////////////////////
-/////////// END MOVING GOAL//////////////
-/////////////////////////////////////////
+//
+// /////////////////////////////////////////
+// /////////High ultra control /////////////
+// /////////////////////////////////////////
+//
+// void hightControl(int maxHigh){
+// //lowest point 670
+// //max point 2100
+// bool run = false;
+// 		while((SensorValue(highDetector)<16) && (SensorValue(lift)<maxHigh)){
+// 	   	  motor(torreTopRight)= -127;
+// 	   	  motor(torreTopLeft) = 127;
+// 	    	motor(torreBottomLeft)= -127;
+// 	    	motor(torreBottomRight)= 127;
+//
+// 	    	run = true;
+// 	    }
+//
+// 	    if (run){
+// 	    	motor(torreTopRight)= -50;
+// 	    	 motor(torreTopLeft) = 50;
+// 	    	motor(torreBottomLeft)= -50;
+// 	    	motor(torreBottomRight)= 50;
+// 	    }
+//
+// }
+// /////////////////////////////////////////
+// /////////// END High ultra control //////
+// /////////////////////////////////////////
+//
+//
+// /***********************************************
+// FROM THIS POINT ON THESE FUNCTIONS SHOULD BE IN AutomatedMotions.c
+// THEY ARE PLACED HERE FOR THE TIME BEING UNTIL THEY ARE ABSTRACTED
+// ************************************************/
+// /////////////////////////////////////////
+// /////////// PUT CONE IN STACK///// //////
+// /////////////////////////////////////////
+//
+// void stack (int high){
+// bool run = false;
+// 	if(SensorValue(lift)>750){
+// 		while((SensorValue(highDetector)>16) && (SensorValue(lift)<high)){
+// 	   	  motor(torreTopRight)= 60;
+// 	   	  motor(torreTopLeft) = -60;
+// 	    	motor(torreBottomLeft)= 60;
+// 	    	motor(torreBottomRight)= -60;
+//
+// 	    	run = true;
+// 	    }
+// 	  }
+//
+//
+// 	    if (run){
+// 	    	motor(torreTopRight)= -50;
+// 	    	 motor(torreTopLeft) = 50;
+// 	    	motor(torreBottomLeft)= -50;
+// 	    	motor(torreBottomRight)= 50;
+// 	    }
+// }
+//
+// /////////////////////////////////////////
+// /////////// END PUT CONE IN STACK/ //////
+// /////////////////////////////////////////
+//
+// /////////////////////////////////////////
+// /////////// CONE LIFT /////////////////////
+// /////////////////////////////////////////
+//
+// void coneLift(char direction, int height){
+// 	//lowest point 0
+// 	//max high 2900-3050
+// 		if(direction == 'U'){
+// 				while(SensorValue(chainBar)<height){
+// 					motor(chainPivot) = -90;
+// 				}
+// 			}
+//
+// 		if(direction == 'D'){
+// 			while((SensorValue(chainBar)>height)){
+// 				motor(chainPivot) = 127;
+// 			}
+// 		}
+//
+// 		motor(chainPivot) = 0;
+// 	}
+//
+// /////////////////////////////////////////
+// /////////// END CONE LIFT/////////// ////
+// /////////////////////////////////////////
+//
+// /////////////////////////////////////////
+// /////////// MOVING GOAL /////////////////
+// /////////////////////////////////////////
+// void moveMG(char direction, int height){//height param needs to be removed
+//
+// SensorValue[MGPiston] =0;
+//
+// 		while(SensorValue[movingGoal]<height && 'U'){
+// 		   		 motor[baseMG]= -127;
+// 		 }
+//
+//
+// 		while(SensorValue[movingGoal]>height && 'D'){
+// 		    motor[baseMG]= 127;
+//  		}
+//
+//
+// 		motor[baseMG]= 0;
+//
+// }
+// /////////////////////////////////////////
+// /////////// END MOVING GOAL//////////////
+// /////////////////////////////////////////
