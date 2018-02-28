@@ -84,11 +84,9 @@ void resetEncoders()
 //		end Legacy
 /////////////////////////////////
 
-void encoderReset(tSensors[] encoders, int arrLength){
+void encoderReset(tSensors encoder){
 
-	for (int i = 0; i < arrLength; i++) {
-		resetSensor(encoders[i]);
-	}
+		resetSensor(encoder);
 
 }
 

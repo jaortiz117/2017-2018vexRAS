@@ -14,6 +14,7 @@
 
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
+#include "../MovementLogic.c"
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */

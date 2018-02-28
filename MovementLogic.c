@@ -1,7 +1,11 @@
-//#include "MotorAndSensorConfig.c"
 #include "SensorLogic.h"
 #include "EncoderLogic.c"
-//#include "MetaKnightBaseBuild.c"
+
+#if META_KNIGHT
+#include "MetaKnightBaseBuild.c"
+#elif KIRBY
+#include "MotorAndSensorConfig.c"
+#endif
 
 //constants
 #define MOTOR_STOP 40
@@ -22,10 +26,12 @@ void baseMove(int leftSide, int rightSide){
 	motor[baseBottomRight]= -rightSide;
 
 	//MetaKnight
-	motor[baseTopLeftMK]= leftSide;
-	motor[baseTopRightMK]= -rightSide;
-	motor[baseBottomLeftMK]= leftSide;
-	motor[baseBottomRightMK]= -rightSide;
+	if(META_KNIGHT){
+		motor[baseTopLeftMK]= leftSide;
+		motor[baseTopRightMK]= -rightSide;
+		motor[baseBottomLeftMK]= leftSide;
+		motor[baseBottomRightMK]= -rightSide;
+	}
 
 }
 

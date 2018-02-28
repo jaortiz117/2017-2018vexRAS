@@ -9,4 +9,7 @@
 #pragma config(Motor,  port9,           baseTopRightMK,  tmotorVex393HighSpeed_MC29, openLoop)
 #pragma config(Motor,  port10,          baseBottomRightMK, tmotorVex393HighSpeed_HBridge, openLoop)
 
+#define META_KNIGHT 1
+#define KIRBY 0
+
 #include "MetaKnightMain.c"
