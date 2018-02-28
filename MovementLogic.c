@@ -85,8 +85,6 @@ void moveForward(int ticks)//ticks: dist in ticks
 		{
 			baseMove(58, 60);
 
-			baseMove(58, 60);
-
 		}
   	else if(getAbsLeft() < getAbsRight())
 		{
