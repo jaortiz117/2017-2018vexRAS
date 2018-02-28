@@ -20,6 +20,9 @@ int absLeft;
 int absRight;
 
 //setters
+//////////////////////////////
+//		Legacy (will only work on kirby)
+/////////////////////////////////
 void setAbsLeft(int newVal){
 	absLeft = newVal;
 }
@@ -37,6 +40,13 @@ int getAbsLeft(){
 int getAbsRight(){
 	setAbsRight(abs(SensorValue[baseRight]));
 	return absRight;
+}
+/////////////////////////////////
+//		end Legacy
+/////////////////////////////////
+
+int getAbsEncoder(tSensors encoder){
+	return abs(SensorValue[encoder]);
 }
 
 //get revolutions of wheel
@@ -56,6 +66,9 @@ float getSpeed(int clicks){// rev/s
 ///METHODS///
 /////////////
 
+//////////////////////////////
+//		Legacy (will only work on kirby)
+/////////////////////////////////
 //RESETTING ENCODERS
 void resetEncoders()
 {
@@ -66,6 +79,17 @@ void resetEncoders()
 
 	setAbsLeft(0);
 	setAbsRight(0);
+}
+/////////////////////////////////
+//		end Legacy
+/////////////////////////////////
+
+void encoderReset(tSensors[] encoders, int arrLength){
+
+	for (int i = 0; i < arrLength; i++) {
+		resetSensor(encoders[i]);
+	}
+
 }
 
 //CONVERTS FROM TICKS TO DISTANCE
