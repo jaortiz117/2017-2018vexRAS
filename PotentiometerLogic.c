@@ -8,6 +8,8 @@
 
 /**********
 Constants
+
+These numbers are based on testing
 **********/
 #define POT_MIN 5
 #define POT_MAX 4092 //need to verify
@@ -53,6 +55,8 @@ int sensorToIndex(tSensors sensor){
 }
 
 //setters
+
+//sets a sensors max and min values
 void setRange(tSensors sensor, int lowLimit, int highLimit){//limits in "ticks"
 
 	int idx = sensorToIndex(sensor);
@@ -61,12 +65,14 @@ void setRange(tSensors sensor, int lowLimit, int highLimit){//limits in "ticks"
 	sensors[idx][1] = highLimit;
 }
 
+//sets a sensors min value
 void setOrigin(tSensors sensor, int val){//in "ticks"
 	int idx = sensorToIndex(sensor);
 
 	sensors[idx][0] = val;
 }
 
+//sets max value for a sensor
 void setMax(tSensors sensor, int val){//in "ticks"
 	int idx = sensorToIndex(sensor);
 
@@ -74,9 +80,13 @@ void setMax(tSensors sensor, int val){//in "ticks"
 }
 
 //getters
+
+//get raw value from sensor
 int getPot(tSensors sensor){
 	return SensorValue(sensor);
 }
+
+//get value of sensor in degrees
 int getPotDeg(tSensors sensor){
 	int val = SensorValue(sensor);
 	int idx = sensorToIndex(sensor);
@@ -88,6 +98,7 @@ int getPotDeg(tSensors sensor){
 Methods
 **********/
 
+//initialize sensors
 void initPots(){
 	setRange(lift, LIFT_LOW, LIFT_HIGH);
 	setRange(chainBar, CONE_LOW, CONE_HIGH);
