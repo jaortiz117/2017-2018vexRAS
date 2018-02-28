@@ -102,5 +102,5 @@ Methods
 void initPots(){
 	setRange(lift, LIFT_LOW, LIFT_HIGH);
 	setRange(chainBar, CONE_LOW, CONE_HIGH);
-	//setRange(movingGoal, GOAL_LOW, GOAL_HIGH);
+	//setRange(movingGoal, GOAL_LOW, GOAL_HIGH);//TODO
 }

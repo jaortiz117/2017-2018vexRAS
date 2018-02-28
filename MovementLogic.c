@@ -1,6 +1,7 @@
-#include "MotorAndSensorConfig.c"
+//#include "MotorAndSensorConfig.c"
 #include "SensorLogic.h"
 #include "EncoderLogic.c"
+//#include "MetaKnightBaseBuild.c"
 
 //constants
 #define MOTOR_STOP 40
@@ -9,14 +10,23 @@
 #define RIGHT 'R'
 
 //globals
-int direction = 1;//why is this here???
+int direction = 1;//why is this here???//LEGACY
 
 //function to move the base, controlled by speed
 void baseMove(int leftSide, int rightSide){
+
+	//Kirby
 	motor[baseTopLeft]= leftSide;
 	motor[baseTopRight]= -rightSide;
 	motor[baseBottomLeft]= leftSide;
 	motor[baseBottomRight]= -rightSide;
+
+	//MetaKnight
+	motor[baseTopLeftMK]= leftSide;
+	motor[baseTopRightMK]= -rightSide;
+	motor[baseBottomLeftMK]= leftSide;
+	motor[baseBottomRightMK]= -rightSide;
+
 }
 
 //stops base

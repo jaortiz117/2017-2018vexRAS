@@ -90,50 +90,50 @@ task usercontrol()
     //UserControlCodePlaceholderForTesting();
 
   	//base
-  	motor[baseBottomLeft] = vexRT[Ch3] + vexRT[Ch4];
-  	motor[baseTopLeft] = vexRT[Ch3] + vexRT[Ch4];
-  	motor[baseBottomRight] = -vexRT[Ch3] + vexRT[Ch4];
-  	motor[baseTopRight] = -vexRT[Ch3] + vexRT[Ch4];
+  	motor[baseBottomLeftMK] = vexRT[Ch3] + vexRT[Ch4];
+  	motor[baseTopLeftMK] = vexRT[Ch3] + vexRT[Ch4];
+  	motor[baseBottomRightMK] = -vexRT[Ch3] + vexRT[Ch4];
+  	motor[baseTopRightMK] = -vexRT[Ch3] + vexRT[Ch4];
 
   	//lift
   	if(vexRT[Btn6U] == 0 && vexRT[Btn6D] == 1){
-  		motor(torreBackLeft) = 127;
-  		motor(torreFrontLeft) = 127;
-  		motor(torreBackRight) = -127;
-  		motor(torreFrontRight) = -127;
+  		motor(torreBackLeftMK) = 127;
+  		motor(torreFrontLeftMK) = 127;
+  		motor(torreBackRightMK) = -127;
+  		motor(torreFrontRightMK) = -127;
   	}
   	else if(vexRT[Btn6D] == 0 && vexRT[Btn6U] == 1){
-  		motor(torreBackLeft) = -127;
-  		motor(torreFrontLeft) = -127;
-  		motor(torreBackRight) = 127;
-  		motor(torreFrontRight) = 127;
+  		motor(torreBackLeftMK) = -127;
+  		motor(torreFrontLeftMK) = -127;
+  		motor(torreBackRightMK) = 127;
+  		motor(torreFrontRightMK) = 127;
   	}
   	else{
-  		motor(torreBackLeft) = 0;
-  		motor(torreFrontLeft) = 0;
-  		motor(torreBackRight) = 0;
-  		motor(torreFrontRight) = 0;
+  		motor(torreBackLeftMK) = 0;
+  		motor(torreFrontLeftMK) = 0;
+  		motor(torreBackRightMK) = 0;
+  		motor(torreFrontRightMK) = 0;
   	}
 
   	//arm
   	if(vexRT[Btn5U] == 0 && vexRT[Btn5D] == 1){
-  		motor(leverArm) = 127;
+  		motor(leverArmMK) = 127;
   	}
   	else if(vexRT[Btn5D] == 0 && vexRT[Btn5U] == 1){
-  		motor(leverArm) = -127;
+  		motor(leverArmMK) = -127;
   	}
   	else{
-  		motor(leverArm) = 0;
+  		motor(leverArmMK) = 0;
   	}
 
   	//piston pusher
   	if(vexRT(Btn7D) == 1){
-  		SensorValue[piston] = 1;
+  		SensorValue[pistonMK] = 1;
   		wait1Msec(500);
-  		SensorValue[piston] = 0;
+  		SensorValue[pistonMK] = 0;
   	}
   	else{
-  		SensorValue[piston] = 0;
+  		SensorValue[pistonMK] = 0;
   	}
 
   }
