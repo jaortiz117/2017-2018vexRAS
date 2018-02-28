@@ -80,27 +80,27 @@ void Foward(int forward)
 
 		if(getAbsLeft() > getAbsRight())
 		{
-			motor[baseTopLeft]= 58;
-    	motor[baseTopRight]= -60;
-    	motor[baseBottomLeft]= 58;
-    	motor[baseBottomRight]= -60;
+			motor[baseTopLeft]= 120;
+    	motor[baseTopRight]= -127;
+    	motor[baseBottomLeft]= 120;
+    	motor[baseBottomRight]= -127;
 
 		}
   	else if(getAbsLeft() < getAbsRight())
 		{
 
-			motor[baseTopLeft]= 60;
-    	motor[baseTopRight]= -58;
-    	motor[baseBottomLeft]= 60;
-    	motor[baseBottomRight]= -58;
+			motor[baseTopLeft]= 127;
+    	motor[baseTopRight]= -120;
+    	motor[baseBottomLeft]= 127;
+    	motor[baseBottomRight]= -120;
 
 		}
 		else if(getAbsLeft()==getAbsRight())
 		{
-			motor[baseTopLeft]= 60;
-    	motor[baseTopRight]= -60;
-    	motor[baseBottomLeft]= 60;
-    	motor[baseBottomRight]= -60;
+			motor[baseTopLeft]= 127;
+    	motor[baseTopRight]= -127;
+    	motor[baseBottomLeft]= 127;
+    	motor[baseBottomRight]= -127;
 		}
 	}
 			motor[baseTopLeft]= 0;
@@ -247,6 +247,38 @@ bool run = false;
 /////////////////////////////////////////
 /////////// END High ultra control //////
 /////////////////////////////////////////
+
+/////////////////////////////////////////
+// TOWER HIGH POTENTIOMETER CONTROL//////
+/////////////////////////////////////////
+
+void towerHigh(char dir, int high){
+
+		if (dir == 'U'){
+			while(SensorValue(lift)<high){
+				motor(torreTopRight)= -127;
+	   	  motor(torreTopLeft) = 127;
+	    	motor(torreBottomLeft)= -127;
+	    	motor(torreBottomRight)= 127;
+			}
+		}
+
+		if (dir == 'D'){
+			while(SensorValue(lift)>high){
+				motor(torreTopRight)= 127;
+	   	  motor(torreTopLeft) = -127;
+	    	motor(torreBottomLeft)= 127;
+	    	motor(torreBottomRight)= -127;
+			}
+
+		}
+
+}
+
+/////////////////////////////////////////
+//// END HIGH POTENTIOMETER CONTROL//////
+/////////////////////////////////////////
+
 
 /////////////////////////////////////////
 /////////// PUT CONE IN STACK///// //////
@@ -405,20 +437,23 @@ void pre_auton()
 task autonomous()
 {
 
+
+
 	//Red autonomous pre loads side
-  //	moveMG('D',0);  //potentiometer its reading 0 before its reach lowest point
-		motor[baseMG]= 127;
-		wait1Msec(2250);
-		motor[baseMG]= 0;
+		coneLift('U', 2900);
+		coneLift('D',0);
+		coneLift('U', 700);
+		moveMG('D', 1100);
 		Foward(1450);
-		moveMG('U', 1630);
+		moveMG('U', 3300); //a~adir  un peque~o giro para enderesarse
+		Backwards(200);
 		coneLift('U',2900);
 		SensorValue(claw)=1;
 		wait1Msec(500);
 		SensorValue(claw)=0;
 		coneLift('D',700);
-	/*Foward(150);
-		coneLift('D',0);
+		Foward(150);
+		/*coneLift('D',0);
 		coneLift('U',700);
     hightControl(2100);
     coneLift('U',2900);
@@ -441,7 +476,27 @@ task autonomous()
 		Giro('L',450);
 		moveMG('D',0);
 		Foward(500);
-		moveMG('U',1630);*/
+		moveMG('U',1630);0*/
+
+
+		// autonomous starting stationary goal
+	/*	coneLift('U',700);
+		Foward(500);
+		towerHigh('U', 1000);
+		coneLift('D', 0);
+		SensorValue(claw) = 1;
+		coneLift('U', 700);
+		towerHigh('D', 700);
+		Backwards(490);
+		Giro('L', 450);
+		Foward(500);
+		Giro('R', 450);
+		moveMG('D',0);
+		Foward(800);
+		moveMG('U', 900);
+		Foward(250);*/
+
+
 
 
 }
