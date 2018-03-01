@@ -16,6 +16,7 @@ void auton1()
     //clawClose
   }
 
-  
+  encoderRotate(180, 90);
+  move(inToTicks(48), 70);
 
 }

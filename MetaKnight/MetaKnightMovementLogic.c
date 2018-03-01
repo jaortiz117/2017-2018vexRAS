@@ -144,17 +144,17 @@ void move(int ticks, int speed){
 
 		if(getAbsEncoder(encoderLeft) > getAbsEncoder(encoderRight))
 		{
-			baseMove(speed - 2, speed);
+			baseMove(dir*speed - 2, dir*speed);
 
 		}
   	else if(getAbsEncoder(encoderLeft) < getAbsEncoder(encoderRight))
 		{
-			baseMove(speed, speed - 2);
+			baseMove(dir*speed, dir*speed - 2);
 
 		}
 		else if(getAbsEncoder(encoderLeft)==getAbsEncoder(encoderRight))
 		{
-			baseMove(speed,speed);
+			baseMove(dir*speed,dir*speed);
 		}
 	}
 
@@ -194,7 +194,7 @@ void encoderRotate(int degrees, int speed){
 
 	float dist = (degrees/360)*(2*PI*ROBOT_RAD);
 
-	int ticks = (int) ceil(dist);
+	int ticks = (int) ceil(inToTicks(dist));
 
 	encoderReset(encoderLeft);
 	encoderReset(encoderRight);
@@ -211,17 +211,17 @@ void encoderRotate(int degrees, int speed){
 
 		if(getAbsEncoder(encoderLeft) > getAbsEncoder(encoderRight))
 		{
-			baseMove(speed - 2, speed);
+			baseMove(dir*speed - 2, -dir*speed);
 
 		}
   	else if(getAbsEncoder(encoderLeft) <getAbsEncoder(encoderRight))
 		{
-			baseMove(speed, speed - 2);
+			baseMove(dir*speed, -dir*speed - 2);
 
 		}
 		else if(getAbsEncoder(encoderLeft)==getAbsEncoder(encoderRight))
 		{
-			baseMove(speed,speed);
+			baseMove(dir*speed,-dir*speed);
 		}
 	}
 
