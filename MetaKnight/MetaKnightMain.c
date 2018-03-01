@@ -15,6 +15,7 @@
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
 #include "MetaKnightMovementLogic.c"
+#include "MetaKnightAuton.c"
 
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -59,7 +60,9 @@ task autonomous()
   // ..........................................................................
 
   // Remove this function call once you have "real" code.
-  AutonomousCodePlaceholderForTesting();
+  //AutonomousCodePlaceholderForTesting();
+
+  auton1();
 }
 
 /*---------------------------------------------------------------------------*/
