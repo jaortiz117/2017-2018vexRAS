@@ -7,7 +7,7 @@
 #include "MetaKnightEncoderLogic.c"
 
 //constants
-#define MOTOR_STOP 40
+#define MOTOR_STOP 35
 #define ROTATION 60
 #define LEFT 'L'
 #define RIGHT 'R'
