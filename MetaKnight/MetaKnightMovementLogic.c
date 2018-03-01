@@ -16,7 +16,7 @@
 #define IN 'I'
 #define OUT 'O'
 
-#define PI 3.14
+//#define PI 3.14
 #define ROBOT_RAD 11
 
 //globals
@@ -129,11 +129,12 @@ void move(int ticks, int speed){
 		return;
 	}
 
-	resetEncoders();
+	encoderReset(encoderLeft);
+	encoderReset(encoderRight);
 
-	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
+	while((getAbsEncoder(encoderLeft)<ticks)&&(getAbsEncoder(encoderRight)<ticks))
 	{
-		int distRemaining = ticks - getAbsLeft();
+		int distRemaining = ticks - getAbsEncoder(encoderLeft);
 		speed = gradualBrakes(speed, distRemaining, ticks);
 
 		if (speed == 0) {	//try this first since it might give a bug
@@ -141,17 +142,17 @@ void move(int ticks, int speed){
 			break;
 		}
 
-		if(getAbsLeft() > getAbsRight())
+		if(getAbsEncoder(encoderLeft) > getAbsEncoder(encoderRight))
 		{
 			baseMove(speed - 2, speed);
 
 		}
-  	else if(getAbsLeft() < getAbsRight())
+  	else if(getAbsEncoder(encoderLeft) < getAbsEncoder(encoderRight))
 		{
 			baseMove(speed, speed - 2);
 
 		}
-		else if(getAbsLeft()==getAbsRight())
+		else if(getAbsEncoder(encoderLeft)==getAbsEncoder(encoderRight))
 		{
 			baseMove(speed,speed);
 		}
@@ -195,11 +196,12 @@ void encoderRotate(int degrees, int speed){
 
 	int ticks = (int) ceil(dist);
 
-	resetEncoders();
+	encoderReset(encoderLeft);
+	encoderReset(encoderRight);
 
-	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
+	while((getAbsEncoder(encoderLeft)<ticks)&&(getAbsEncoder(encoderRight)<ticks))
 	{
-		int distRemaining = ticks - getAbsLeft();
+		int distRemaining = ticks - getAbsEncoder(encoderLeft);
 		speed = gradualBrakes(speed, distRemaining, ticks);
 
 		if (speed == 0) {	//try this first since it might give a bug
@@ -207,17 +209,17 @@ void encoderRotate(int degrees, int speed){
 			break;
 		}
 
-		if(getAbsLeft() > getAbsRight())
+		if(getAbsEncoder(encoderLeft) > getAbsEncoder(encoderRight))
 		{
 			baseMove(speed - 2, speed);
 
 		}
-  	else if(getAbsLeft() < getAbsRight())
+  	else if(getAbsEncoder(encoderLeft) <getAbsEncoder(encoderRight))
 		{
 			baseMove(speed, speed - 2);
 
 		}
-		else if(getAbsLeft()==getAbsRight())
+		else if(getAbsEncoder(encoderLeft)==getAbsEncoder(encoderRight))
 		{
 			baseMove(speed,speed);
 		}
