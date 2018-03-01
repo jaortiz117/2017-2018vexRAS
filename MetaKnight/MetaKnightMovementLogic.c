@@ -11,6 +11,13 @@
 #define ROTATION 60
 #define LEFT 'L'
 #define RIGHT 'R'
+#define UP 'U'
+#define DOWN 'D'
+#define IN 'I'
+#define OUT 'O'
+
+#define PI 3.14
+#define ROBOT_RAD 11
 
 //globals
 int direction = 1;//why is this here???//LEGACY
@@ -29,6 +36,25 @@ void baseMove(int leftSide, int rightSide){
 	motor[baseTopRightMK]= -rightSide;
 	motor[baseBottomLeftMK]= leftSide;
 	motor[baseBottomRightMK]= -rightSide;
+
+}
+
+void liftMove(int speed){
+	motor[torreFrontLeftMK]= -speed;
+	motor[torreFrontRightMK]= speed;
+	motor[torreBackLeftMK]= -speed;
+	motor[torreBackRightMK]= speed;
+}
+
+void leverMove(char dir){
+	int d = 1;
+	if(dir == OUT){
+		d = -1;
+	}
+
+	motor[leverArmMK] = d*127;
+	wait1Msec(500);
+	motor[leverArmMK] = 0;
 
 }
 
@@ -135,6 +161,89 @@ void move(int ticks, int speed){
 
 }
 
+/********************
+encoderRotate - basic rotational movement function
+	degrees - is a distance vector (includes direction)
+	speed - speed of motors 0 - 127 inclusive
+********************/
+void encoderRotate(int degrees, int speed){
+	//TODO make speed eq'ing dynamic
+	//	check bug: robot might not travel full distance
+
+
+	//radius of ROBOT: 11in
+	//get circ
+	//make sure wheel travels desired fraction of circ
+
+	int dir = 1;
+
+	if(degrees < 0){
+		degrees = 360+degrees;
+		dir = -1;
+	}
+
+	if(speed < 0){
+		speed = abs(speed);
+	}
+
+	if(speed<=MOTOR_STOP){
+		baseMove(0,0);
+		return;
+	}
+
+	float dist = (degrees/360)*(2*PI*ROBOT_RAD);
+
+	int ticks = (int) ceil(dist);
+
+	resetEncoders();
+
+	while((getAbsLeft()<ticks)&&(getAbsRight()<ticks))
+	{
+		int distRemaining = ticks - getAbsLeft();
+		speed = gradualBrakes(speed, distRemaining, ticks);
+
+		if (speed == 0) {	//try this first since it might give a bug
+			// try using a getSpeed function instead
+			break;
+		}
+
+		if(getAbsLeft() > getAbsRight())
+		{
+			baseMove(speed - 2, speed);
+
+		}
+  	else if(getAbsLeft() < getAbsRight())
+		{
+			baseMove(speed, speed - 2);
+
+		}
+		else if(getAbsLeft()==getAbsRight())
+		{
+			baseMove(speed,speed);
+		}
+	}
+
+	suddenBrakes();
+
+}
+
+/******************
+LIFT
+******************/
+void lift(char dir){
+
+	int d = 1;
+	if(dir == DOWN){
+		d = -1;
+	}
+//TODO add limit switch
+
+liftMove(d*70);
+wait1Msec(500);
+liftMove(0);
+
+}
+
 //TODO place side equalizer appart from the move functions using encoder difference
 //this way we can make equalizing more dynamic and that way more efficient
 
@@ -175,7 +284,7 @@ rotate - basic turning function
 // 	}
 //
 // 	suddenBrakes();
-// 
+//
 // }
 
 //
