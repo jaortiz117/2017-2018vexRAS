@@ -25,14 +25,6 @@ void baseMove(int leftSide, int rightSide){
 	motor[baseBottomLeft]= leftSide;
 	motor[baseBottomRight]= -rightSide;
 
-	//MetaKnight
-	if(META_KNIGHT){
-		motor[baseTopLeftMK]= leftSide;
-		motor[baseTopRightMK]= -rightSide;
-		motor[baseBottomLeftMK]= leftSide;
-		motor[baseBottomRightMK]= -rightSide;
-	}
-
 }
 
 //stops base
