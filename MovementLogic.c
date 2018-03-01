@@ -248,7 +248,7 @@ void rotate(char side, int angle){//FUNCION#8: Giro
 		return;
 	}
 
-	restGyro();
+	resetGyro(gyro);
 
 	while(gyroToDegree(getAbsGyro(gyro)) < angle){
 
