@@ -237,10 +237,15 @@ void lift(char dir){
 	int d = 1;
 	if(dir == DOWN){
 		d = -1;
+		liftMove(d*70);
+	}
+	else{
+		while(SensorValue[limit] == 0){
+			liftMove(d*70);
+		}
 	}
 //TODO add limit switch
 
-liftMove(d*70);
 wait1Msec(500);
 liftMove(0);
 

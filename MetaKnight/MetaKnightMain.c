@@ -140,9 +140,9 @@ task usercontrol()
   		SensorValue[pistonMK] = 0;
   	}
 
-    if(vexRT(Btn8D) == 1){
-      auton1();
-    }
+    // if(vexRT(Btn8D) == 1){
+    //   auton1();
+    // }
 
   }
 }
