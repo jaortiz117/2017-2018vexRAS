@@ -2,6 +2,7 @@
 
 void auton1()
 {
+  //TODO make const for speeds, low, med, high, full
 
   //move towards goal
   move(inToTicks(24), 60);
