@@ -13,7 +13,7 @@ void auton1()
   move(inToTicks(-6), 50);
 
   //move arm into game loads 3 times
-  for(int i=0; i<3; i++){
+  for(int i=0; i<2; i++){
     //clawOpen
     leverMove(IN);
     wait1Msec(500);
