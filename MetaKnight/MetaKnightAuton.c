@@ -37,6 +37,12 @@ void auton1()
   move(inToTicks(-12), 60);
 
   //move to position looking at north blue tile
+  encoderRotate(45+90, 40);
+  move(inToTicks(6*12), 80);
+  lift(DOWN);
+  move(inToTicks(12), 40);
+  lift(UP);
+
 
   //pickup and score blue goal
 
