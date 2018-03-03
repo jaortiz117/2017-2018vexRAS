@@ -76,6 +76,6 @@ void auton1()
 *
 **/
 void tester(){
-  // move(inToTicks(3), 60);
-  encoderRotate(90, 90);
+  move(inToTicks(10), 127);
+  //encoderRotate(30, 90);
 }

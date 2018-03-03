@@ -17,7 +17,7 @@
 #define OUT 'O'
 
 //#define PI 3.14
-#define ROBOT_RAD 11
+#define ROBOT_RAD 20
 
 //globals
 int direction = 1;//why is this here???//LEGACY
