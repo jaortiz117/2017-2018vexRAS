@@ -7,6 +7,7 @@
 #pragma config(Motor,  port3,           torreFrontLeftMK, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port4,           torreBackLeftMK, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port5,           leverArmMK,    tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           claw,          tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           torreBackRightMK, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           torreFrontRightMK, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port9,           baseTopRightMK, tmotorVex393HighSpeed_MC29, openLoop)

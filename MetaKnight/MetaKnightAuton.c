@@ -48,9 +48,9 @@ void auton1()
   lift(UP);//pickup blue GOAL
   move(inToTicks(-6*12), 80);
   encoderRotate(180, 40);
-  move(inToTicks(12, 40));
+  move(inToTicks(12), 40);
   lift(DOWN);//release goal
-  move(inToTicks(-12, 40));
+  move(inToTicks(-12), 40);
 
   //position for south blue
   encoderRotate(180, 40);
