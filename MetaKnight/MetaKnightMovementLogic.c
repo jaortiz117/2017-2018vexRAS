@@ -192,9 +192,17 @@ void encoderRotate(int degrees, int speed){
 		return;
 	}
 
-	float dist = (degrees/360)*(2*PI*ROBOT_RAD);
+	float dist = (((float)degrees)/360.0)*(2.0*PI*ROBOT_RAD);
+	// displayLCDPos(0, 0);
+	// displayNextLCDString("dist: ");
+	// displayLCDPos(0, 7);
+	// displayNextLCDNumber(dist, 5);
 
 	int ticks = (int) ceil(inToTicks(dist));
+	// displayLCDPos(1, 0);
+	// displayNextLCDString("ticks: ");
+	// displayLCDPos(1, 7);
+	// displayNextLCDNumber(ticks, 4);
 
 	encoderReset(encoderLeft);
 	encoderReset(encoderRight);

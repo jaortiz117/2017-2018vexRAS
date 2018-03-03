@@ -70,3 +70,12 @@ void auton1()
   encoderRotate(-45-90, 40);
   move(inToTicks(24*3), 90);
 }
+
+/**
+* tester - this function is to be used when testing
+*
+**/
+void tester(){
+  // move(inToTicks(3), 60);
+  encoderRotate(90, 90);
+}

@@ -123,12 +123,12 @@ task usercontrol()
   	if(vexRT[Btn8L] == 1
   		//&& vexRT[Btn8R] == 0
   		){
-  		motor(leverArmMK) = 127;
+  		motor(leverArmMK) = 127/2;
   	}
   	else if(vexRT[Btn8R] == 1
   		//&& vexRT[Btn8L] == 0
   		){
-  		motor(leverArmMK) = -127;
+  		motor(leverArmMK) = -127/2;
   	}
   	else{
   		motor(leverArmMK) = 0;
@@ -155,9 +155,9 @@ task usercontrol()
   		SensorValue[pistonMK] = 0;
   	}
 
-    // if(vexRT(Btn8D) == 1){
-    //   auton1();
-    // }
+    if(vexRT(Btn8D) == 1){
+      tester();
+    }
 
   }
 }
