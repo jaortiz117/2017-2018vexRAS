@@ -7,7 +7,7 @@
 #include "MetaKnightEncoderLogic.c"
 
 //constants
-#define MOTOR_STOP 35
+#define MOTOR_STOP 30
 #define ROTATION 60
 #define LEFT 'L'
 #define RIGHT 'R'
@@ -90,13 +90,13 @@ int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
   if(distRemaining < origDist/4
       && currentSpeed > MOTOR_STOP){
 
-    float reductCoeff = distRemaining/origDist;
-    float decimalSpeed = reductCoeff * currentSpeed;
+    float reductCoeff = ((float)distRemaining)/((float)origDist);
+    float decimalSpeed = reductCoeff *((float) currentSpeed);
     speed = (int) ceil(decimalSpeed);
   }
   else if(currentSpeed <= MOTOR_STOP){
-    //return MOTOR_STOP;
-		return 0;
+    return MOTOR_STOP;
+		//return 0;
   }
 
   //returns new speed
