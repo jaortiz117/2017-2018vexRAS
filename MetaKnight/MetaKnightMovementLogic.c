@@ -112,7 +112,8 @@ move - basic linear movement function
 ********************/
 void move(int ticks, int speed){//TODO make a generic baseMovement with encoders function so we can use it in rotation as well
 	//TODO make speed eq'ing dynamic
-	//	check bug: robot might not travel full distance
+	//TODO make so if distance is to low automatically make robot move slowly
+	//			note: can be done in other function
 
 	int dir = 1;
 
