@@ -120,10 +120,14 @@ task usercontrol()
   	}
 
   	//arm
-  	if(vexRT[Btn8L] == 0 && vexRT[Btn8R] == 1){
+  	if(vexRT[Btn8L] == 1
+  		//&& vexRT[Btn8R] == 0
+  		){
   		motor(leverArmMK) = 127;
   	}
-  	else if(vexRT[Btn8L] == 0 && vexRT[Btn8R] == 1){
+  	else if(vexRT[Btn8R] == 1
+  		//&& vexRT[Btn8L] == 0
+  		){
   		motor(leverArmMK) = -127;
   	}
   	else{
@@ -134,7 +138,7 @@ task usercontrol()
     if(vexRT[Btn5U] == 0 && vexRT[Btn5D] == 1){
   		motor(claw) = 127;
   	}
-  	else if(vexRT[Btn5U] == 0 && vexRT[Btn5D] == 1){
+  	else if(vexRT[Btn5U] == 1 && vexRT[Btn5D] == 0){
   		motor(claw) = -127;
   	}
   	else{
