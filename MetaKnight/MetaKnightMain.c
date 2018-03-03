@@ -100,24 +100,29 @@ task usercontrol()
   	motor[baseTopRightMK] = -vexRT[Ch3] + vexRT[Ch4];
 
   	//lift
-  	if(vexRT[Btn6U] == 0 && vexRT[Btn6D] == 1){
-  		motor(torreBackLeftMK) = 127;
-  		motor(torreFrontLeftMK) = 127;
-  		motor(torreBackRightMK) = -127;
-  		motor(torreFrontRightMK) = -127;
-  	}
-  	else if(vexRT[Btn6D] == 0 && vexRT[Btn6U] == 1){
-  		motor(torreBackLeftMK) = -127;
-  		motor(torreFrontLeftMK) = -127;
-  		motor(torreBackRightMK) = 127;
-  		motor(torreFrontRightMK) = 127;
-  	}
-  	else{
-  		motor(torreBackLeftMK) = 0;
-  		motor(torreFrontLeftMK) = 0;
-  		motor(torreBackRightMK) = 0;
-  		motor(torreFrontRightMK) = 0;
-  	}
+
+    int rightSpeed = 127-(127/3);
+
+    int limitSwitch = SensorValue[limit];
+      if(vexRT[Btn6U] == 0 && vexRT[Btn6D] == 1){
+        motor(torreBackLeftMK) = 127;
+        motor(torreFrontLeftMK) = 127;
+        motor(torreBackRightMK) = -127;
+        motor(torreFrontRightMK) = -127;
+      }
+      else if(vexRT[Btn6D] == 0 && vexRT[Btn6U] == 1
+      && (limitSwitch == 0)){
+        motor(torreBackLeftMK) = -127;
+        motor(torreFrontLeftMK) = -127;
+        motor(torreBackRightMK) = 127;
+        motor(torreFrontRightMK) = 127;
+      }
+      else{
+        motor(torreBackLeftMK) = 0;
+        motor(torreFrontLeftMK) = 0;
+        motor(torreBackRightMK) = 0;
+        motor(torreFrontRightMK) = 0;
+      }
 
   	//arm
   	if(vexRT[Btn8L] == 1
