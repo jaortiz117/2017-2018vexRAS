@@ -144,12 +144,12 @@ void move(int ticks, int speed){//TODO make a generic baseMovement with encoders
 
 		if(getAbsEncoder(encoderLeft) > getAbsEncoder(encoderRight))
 		{
-			baseMove(dir*speed - 2, dir*speed);
+			baseMove(dir*(speed - 2), dir*speed);
 
 		}
   	else if(getAbsEncoder(encoderLeft) < getAbsEncoder(encoderRight))
 		{
-			baseMove(dir*speed, dir*speed - 2);
+			baseMove(dir*speed, dir*(speed - 2));
 
 		}
 		else if(getAbsEncoder(encoderLeft)==getAbsEncoder(encoderRight))
@@ -211,12 +211,12 @@ void encoderRotate(int degrees, int speed){
 
 		if(getAbsEncoder(encoderLeft) > getAbsEncoder(encoderRight))
 		{
-			baseMove(dir*speed - 2, -dir*speed);
+			baseMove(dir*(speed - 2), -dir*speed);
 
 		}
   	else if(getAbsEncoder(encoderLeft) <getAbsEncoder(encoderRight))
 		{
-			baseMove(dir*speed, -dir*speed - 2);
+			baseMove(dir*speed, -dir*(speed - 2));
 
 		}
 		else if(getAbsEncoder(encoderLeft)==getAbsEncoder(encoderRight))
