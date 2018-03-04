@@ -1,17 +1,17 @@
 #include "SensorLogic.h"
 #include "EncoderLogic.c"
 
-#if META_KNIGHT
-#include "MetaKnightBaseBuild.c"
-#elif KIRBY
-#include "MotorAndSensorConfig.c"
-#endif
-
 //constants
 #define MOTOR_STOP 40
 #define ROTATION 60
 #define LEFT 'L'
 #define RIGHT 'R'
+#define UP 'U'
+#define DOWN 'D'
+#define IN 'I'
+#define OUT 'O'
+
+#define ROBOT_RAD 20
 
 //globals
 int direction = 1;//why is this here???//LEGACY
@@ -59,13 +59,13 @@ int gradualBrakes(int currentSpeed, int distRemaining, int origDist){
   if(distRemaining < origDist/4
       && currentSpeed > MOTOR_STOP){
 
-    float reductCoeff = distRemaining/origDist;
-    float decimalSpeed = reductCoeff * currentSpeed;
-    speed = (int) ceil(decimalSpeed);
+				float reductCoeff = ((float)distRemaining)/((float)origDist);
+				float decimalSpeed = reductCoeff *((float) currentSpeed);
+				speed = (int) ceil(decimalSpeed);
   }
   else if(currentSpeed <= MOTOR_STOP){
-    //return MOTOR_STOP;
-		return 0;
+    return MOTOR_STOP;
+		//return 0;
   }
 
   //returns new speed
@@ -204,17 +204,17 @@ void move(int ticks, int speed){
 
 		if(getAbsLeft() > getAbsRight())
 		{
-			baseMove(speed - 2, speed);
+			baseMove(dir*(speed - 2), dir*speed);
 
 		}
   	else if(getAbsLeft() < getAbsRight())
 		{
-			baseMove(speed, speed - 2);
+			baseMove(dir*speed, dir*(speed - 2));
 
 		}
 		else if(getAbsLeft()==getAbsRight())
 		{
-			baseMove(speed,speed);
+			baseMove(dir*speed,dir*speed);
 		}
 	}
 

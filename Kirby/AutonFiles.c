@@ -1,8 +1,8 @@
-#include "MotorAndSensorConfig.c"
+//#include "MotorAndSensorConfig.c"
 #include "../MovementLogic.c"
 #include "../SensorLogic.h"
 #include "../EncoderLogic.c"
-#include "baseRUMrobot.c"// temporary
+//#include "baseRUMrobot.c"// temporary
 
 //constants
 
