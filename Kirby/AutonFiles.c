@@ -71,15 +71,15 @@ void autonRedSide(){
   coneLift('D',0);
   coneLift('U', 700);
   moveMG('D', 1100);
-  Foward(1450);
+  //Foward(1450);
   moveMG('U', 3300); //a~adir  un peque~o giro para enderesarse
-  Backwards(200);
+  //Backwards(200);
   coneLift('U',2900);
   SensorValue(claw)=1;
   wait1Msec(500);
   SensorValue(claw)=0;
   coneLift('D',700);
-  Foward(150);
+  //Foward(150);
   /*coneLift('D',0);
   coneLift('U',700);
   hightControl(2100);
@@ -130,66 +130,66 @@ void skillsAuton(){
 
   //move towards goal
   move(inToTicks(24), 60);
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate
   move(inToTicks(12), 50);//pick up goal
-  lift(UP);
+  //lift(UP);//change to appropiate
   move(inToTicks(-6), 50);
 
   //move arm into game loads 3 times
   for(int i=0; i<2; i++){
     //clawOpen
-    leverMove(IN);
+    //leverMove(IN);//change to appropiate
     wait1Msec(500);
     //clawClose
   }
 
   // turn around towards corner
-  encoderRotate(180, 90);
+  //encoderRotate(180, 90);//change to appropiate
   move(inToTicks(48), 70);
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate
   move(inToTicks(-12), 40);//release moving goal
 
   //rotate towards center//needs work
-  encoderRotate(-45, 60);
+  //encoderRotate(-45, 60);//change to appropiate
   //move towards two goals
   move(inToTicks(48), 90);
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate
   move(inToTicks(60), 40);
-  lift(UP);//pickup two goals
+  //lift(UP);//pickup two goals//change to appropiate
   move(inToTicks(48), 90);//move towards other corner
   move(inToTicks(12), 60);//walk over tube
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate//change to appropiate
   move(inToTicks(-12), 60);
 
   //move to position looking at north blue tile
-  encoderRotate(45+90, 40);
+  //encoderRotate(45+90, 40);//change to appropiate
 
   //pickup and score blue goal
   move(inToTicks(6*12), 80);
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate
   move(inToTicks(12), 40);
-  lift(UP);//pickup blue GOAL
+  //lift(UP);//pickup blue GOAL//change to appropiate
   move(inToTicks(-6*12), 80);
-  encoderRotate(180, 40);
+  //encoderRotate(180, 40);//change to appropiate
   move(inToTicks(12), 40);
-  lift(DOWN);//release goal
+  //lift(DOWN);//release goal//change to appropiate
   move(inToTicks(-12), 40);
 
   //position for south blue
-  encoderRotate(180, 40);
+  //encoderRotate(180, 40);//change to appropiate
   //rotate towards center//needs work
-  encoderRotate(-45, 60);
+  //encoderRotate(-45, 60);//change to appropiate
   //move towards two goals
   move(inToTicks(48), 90);
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate
   move(inToTicks(60), 40);
-  lift(UP);//pickup two goals
+  //lift(UP);//pickup two goals//change to appropiate
   move(inToTicks(48), 90);//move towards other corner
   move(inToTicks(12), 60);//walk over tube
-  lift(DOWN);
+  //lift(DOWN);//change to appropiate
   move(inToTicks(-12), 60);
 
   //park at south red tile
-  encoderRotate(-45-90, 40);
+  //encoderRotate(-45-90, 40);//change to appropiate
   move(inToTicks(24*3), 90);
 }
