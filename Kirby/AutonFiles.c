@@ -166,7 +166,31 @@ void skillsAuton(){//!!!so far only works on red side
 
   //move towards next usable goal
   move(inToTicks(24), 90);
-  
+  wait1Msec(100);
+  hightControl(2100);
+  wait1Msec(100);
+  moveMG(DOWN, 1100);
+  move(inToTicks(24),90);
+  moveMG(UP, 3300);//grab it
+
+  //turn back around towards wall
+  rotate(RIGHT, 180);
+  move(inToTicks(48), 60);
+  wait1Msec(100);
+
+  //rotate towards corner
+  rotate(RIGHT, 90);
+  move(inToTicks(60), 90);//move towards corner
+  wait1Msec(100);
+
+  //lower moving goal and step back
+  moveMG(DOWN, 1100);
+  move(inToTicks(-12), 90);
+  moveMG(UP, 3300);//raise moving goal carrier
+  wait1Msec(100);
+  hightControl(670);
+  wait1Msec(100);
+
 
   // TODO find if vvv is necesary
   // //rotate towards center//needs work
