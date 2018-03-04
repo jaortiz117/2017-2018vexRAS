@@ -124,15 +124,19 @@ void autonRedSide(){
   Foward(250);*/
 }
 
-void skillsAuton(){
+void skillsAuton(){//!!!so far only works on red side
   //TODO make const for speeds, low, med, high, full
   //add a 100 ms delay between every function
 
   //move towards goal
   move(inToTicks(24), 60);
+  wait1Msec(100);
+  hightControl(2100);
+  wait1Msec(100);
   moveMG(DOWN, 1100);
   move(inToTicks(12), 50);//pick up goal
   moveMG(UP, 3300);
+  SensorValue(claw) = 1;
   move(inToTicks(-6), 50);
 
   // //move arm into game loads 3 times
@@ -144,52 +148,68 @@ void skillsAuton(){
   // }
 
   // turn around towards corner
-  rotate(RIGHT, 180);
+  rotate(LEFT, 180);
   move(inToTicks(48), 70);
   moveMG(DOWN, 1100);
+  //TODO pusher
   move(inToTicks(-12), 40);//release moving goal
 
-  //rotate towards center//needs work
-  rotate(LEFT, 45);//change to appropiate
-  //move towards two goals
-  move(inToTicks(48), 90);
-  moveMG(DOWN, 1100);
-  move(inToTicks(40), 40);
-  moveMG(UP, 3300);//pickup goals
-  move(inToTicks(68), 90);//move towards other corner
-  move(inToTicks(12), 60);//walk over tube
-  moveMG(DOWN, 1100);
-  move(inToTicks(-12), 60);
+  wait1Msec(100);
+  hightControl(670);
+  wait1Msec(100);
 
-  //move to position looking at north blue tile
-  rotate(RIGHT,45+90);//change to appropiate
+  //turn back towards next possible moving goal
+  move(inToTicks(-36), 90);
+  rotate(RIGHT, 90);
+  move(inToTicks(-6), 127);//clash against wall to straighten out
+  wait1Msec(100);
 
-  //pickup and score blue goal
-  move(inToTicks(6*12), 80);
-  //lift(DOWN);//change to appropiate
-  move(inToTicks(12), 40);
-  //lift(UP);//pickup blue GOAL//change to appropiate
-  move(inToTicks(-6*12), 80);
-  //encoderRotate(180, 40);//change to appropiate
-  move(inToTicks(12), 40);
-  //lift(DOWN);//release goal//change to appropiate
-  move(inToTicks(-12), 40);
+  //move towards next usable goal
+  move(inToTicks(24), 90);
+  
 
-  //position for south blue
-  //encoderRotate(180, 40);//change to appropiate
-  //rotate towards center//needs work
-  //encoderRotate(-45, 60);//change to appropiate
-  //move towards two goals
-  move(inToTicks(48), 90);
-  //lift(DOWN);//change to appropiate
-  move(inToTicks(60), 40);
-  //lift(UP);//pickup two goals//change to appropiate
-  move(inToTicks(48), 90);//move towards other corner
-  move(inToTicks(12), 60);//walk over tube
-  //lift(DOWN);//change to appropiate
-  move(inToTicks(-12), 60);
-
-  //park at south red tile
-  //encoderRotate(-45-90, 40);//change to appropiate
-  move(inToTicks(24*3), 90);
+  // TODO find if vvv is necesary
+  // //rotate towards center//needs work
+  // rotate(LEFT, 45);//change to appropiate
+  // //move towards two goals
+  // move(inToTicks(48), 90);
+  // moveMG(DOWN, 1100);
+  // move(inToTicks(40), 40);
+  // moveMG(UP, 3300);//pickup goals
+  // move(inToTicks(68), 90);//move towards other corner
+  // move(inToTicks(12), 60);//walk over tube
+  // moveMG(DOWN, 1100);
+  // move(inToTicks(-12), 60);
+  //
+  // //move to position looking at north blue tile
+  // rotate(RIGHT,45+90);//change to appropiate
+  //
+  // //pickup and score blue goal
+  // move(inToTicks(6*12), 80);
+  // //lift(DOWN);//change to appropiate
+  // move(inToTicks(12), 40);
+  // //lift(UP);//pickup blue GOAL//change to appropiate
+  // move(inToTicks(-6*12), 80);
+  // //encoderRotate(180, 40);//change to appropiate
+  // move(inToTicks(12), 40);
+  // //lift(DOWN);//release goal//change to appropiate
+  // move(inToTicks(-12), 40);
+  //
+  // //position for south blue
+  // //encoderRotate(180, 40);//change to appropiate
+  // //rotate towards center//needs work
+  // //encoderRotate(-45, 60);//change to appropiate
+  // //move towards two goals
+  // move(inToTicks(48), 90);
+  // //lift(DOWN);//change to appropiate
+  // move(inToTicks(60), 40);
+  // //lift(UP);//pickup two goals//change to appropiate
+  // move(inToTicks(48), 90);//move towards other corner
+  // move(inToTicks(12), 60);//walk over tube
+  // //lift(DOWN);//change to appropiate
+  // move(inToTicks(-12), 60);
+  //
+  // //park at south red tile
+  // //encoderRotate(-45-90, 40);//change to appropiate
+  // move(inToTicks(24*3), 90);
 }
