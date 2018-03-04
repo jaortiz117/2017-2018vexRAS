@@ -1,4 +1,4 @@
-#include "MotorAndSensorConfig.c"
+//#include "MotorAndSensorConfig.c"
 
 #include "EncoderLogic.c"
 #include "GyroLogic.c"

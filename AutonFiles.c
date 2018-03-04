@@ -1,5 +1,0 @@
-
-void auton()
-{
-	//autonomous code
-}

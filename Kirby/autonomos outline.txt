@@ -1,0 +1,118 @@
+		
+
+	Autonomous idea 1:		(view as starting from the red side)
+		
+		(pick moving goal, stack cones, score movin 20 pts zone, search other moving goal 10 pts zone)
+
+
+		foward
+		lift chain bar
+		take moving goal (pre-loads side)
+		stack autonomous pre-load
+		move foward
+		pick one or two cones
+		backwards
+		turn L
+		backwards
+		turn L
+		foward
+		score moving goal (20 pts zone)
+		backwards 
+		turn L
+		foward		
+		turn L
+		foward
+		lift chain bar
+		take moving goal 
+		foward
+		stack one cone
+		backwards
+		turn R
+		backwards
+		turn R
+		foward
+		score moving goal (10 pts zone)
+		
+
+		(if we have time, search a cone and stack it in the stationary goal)
+
+		for blue side change the direction of the cones
+
+
+
+
+	Autonomous idea 2: 		(view as starting from the red side)
+
+
+		(stack cone in stationary goal, search moving goal, stack cones, score goal 20 pts zone)
+
+		foward
+		lift tower (statioary goal)
+		stack autonomous pre-loads cone
+		backwards
+		turn L
+		foward 
+		turn R
+		foward
+		pick moving goal (pre-loads side)
+		backwards  (until loads line)
+		turn L
+		stack 2 cones and pick 1 aditional cone
+		backwards
+		turn L
+		foward (till 5 pts zone)
+		turn L
+		foward (aline with 20 pts zone)
+		turn L
+		foward
+		score moving goal in 20 pts zone
+		backwards
+		turn 180 degrees
+		foward (just a bit)
+		stack one cone in stationary goal
+
+
+
+
+	Autonomous idea 3: 		(view as starting from the red side)
+
+
+		(stack cone in stationary goal, search moving goal right side, stack cones, score goal 20 pts zone)
+
+		foward
+		lift tower (statioary goal)
+		stack autonomous pre-loads cone
+		backwards
+		turn R
+		foward
+		turn L
+		foward
+		pick moving goal
+		foward
+		stack one cone
+		backwards
+		turn R
+		backwards (aline witn 20 pts zone)
+		turn R
+		foward 
+		score moving goal
+		backwards
+		turn R
+		foward 
+		turn R
+		foward
+		pick moving goal
+		backwards (till line of loads)
+		turn L
+		stack cones 
+		backwards
+		turn L
+		foward
+		turn L
+		foward
+		score in 10 pts zone 
+
+		
+
+
+		

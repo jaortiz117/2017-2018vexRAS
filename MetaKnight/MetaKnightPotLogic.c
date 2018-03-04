@@ -21,6 +21,9 @@ These numbers are based on testing
 #define CONE_LOW 0
 #define CONE_HIGH 2975
 
+#define ARM_LOW 0
+#define ARM_HI 1000
+
 //globals
 int sensors[SENSOR_AMOUNT][2] = {//array that stores each sensors' "settings"
 	{POT_MIN, POT_MAX},
@@ -35,23 +38,25 @@ int map(int x, int in_min, int in_max, int out_min, int out_max)
 
 //takes the name of the sensor and translates into index of array
 int sensorToIndex(tSensors sensor){
-	switch(sensor){
+	// switch(sensor){
+	//
+	// 	case lift:
+	// 		return 0;
+	// 		break;
+	//
+	// 	case movingGoal:
+	// 		return 1;
+	// 		break;
+	//
+	// 	case chainBar:
+	// 		return 2;
+	// 		break;
+	//
+	// 	default:
+	// 		return -1;
+	// }
 
-		case lift:
-			return 0;
-			break;
-
-		case movingGoal:
-			return 1;
-			break;
-
-		case chainBar:
-			return 2;
-			break;
-
-		default:
-			return -1;
-	}
+	return 0;
 }
 
 //setters
@@ -99,8 +104,13 @@ Methods
 **********/
 
 //initialize sensors
-void initPots(){
-	setRange(lift, LIFT_LOW, LIFT_HIGH);
-	setRange(chainBar, CONE_LOW, CONE_HIGH);
+// void initPots(){
+// 	setRange(lift, LIFT_LOW, LIFT_HIGH);
+// 	setRange(chainBar, CONE_LOW, CONE_HIGH);
+// 	//setRange(movingGoal, GOAL_LOW, GOAL_HIGH);//TODO
+// }
+void initPot(tSensors pot){
+	setRange(pot, ARM_LOW, ARM_HI);
+	//setRange(chainBar, CONE_LOW, CONE_HIGH);
 	//setRange(movingGoal, GOAL_LOW, GOAL_HIGH);//TODO
 }
