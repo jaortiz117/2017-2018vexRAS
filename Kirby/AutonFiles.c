@@ -1,7 +1,7 @@
 //#include "MotorAndSensorConfig.c"
 #include "../MovementLogic.c"
 #include "../SensorLogic.h"
-#include "../EncoderLogic.c"
+//#include "../EncoderLogic.c"
 //#include "baseRUMrobot.c"// temporary
 
 //constants
@@ -63,4 +63,63 @@ void auton1(){
   moveMG('D', 0);
   moveBackward(inToTicks(12.0));//needs a funct
 
+}
+
+void autonRedSide(){
+  //Red autonomous pre loads side
+  coneLift('U', 2900);
+  coneLift('D',0);
+  coneLift('U', 700);
+  moveMG('D', 1100);
+  Foward(1450);
+  moveMG('U', 3300); //a~adir  un peque~o giro para enderesarse
+  Backwards(200);
+  coneLift('U',2900);
+  SensorValue(claw)=1;
+  wait1Msec(500);
+  SensorValue(claw)=0;
+  coneLift('D',700);
+  Foward(150);
+  /*coneLift('D',0);
+  coneLift('U',700);
+  hightControl(2100);
+  coneLift('U',2900);
+  stack(2100);
+  SensorValue(claw) = 1;
+  wait1Msec(250);
+  hightControl(2100);
+  SensorValue(claw) = 0;
+  wait1Msec(250);
+  coneLift('D',2350);
+  Backwards(600);
+  Giro('R',450);
+  Foward(150);
+  Giro('R',450);
+  moveMG('D',200);
+  Foward(300);
+  Backwards(500);
+  Giro('L',450);
+  Foward(200);
+  Giro('L',450);
+  moveMG('D',0);
+  Foward(500);
+  moveMG('U',1630);0*/
+
+
+  // autonomous starting stationary goal
+  /*	coneLift('U',700);
+  Foward(500);
+  towerHigh('U', 1000);
+  coneLift('D', 0);
+  SensorValue(claw) = 1;
+  coneLift('U', 700);
+  towerHigh('D', 700);
+  Backwards(490);
+  Giro('L', 450);
+  Foward(500);
+  Giro('R', 450);
+  moveMG('D',0);
+  Foward(800);
+  moveMG('U', 900);
+  Foward(250);*/
 }
