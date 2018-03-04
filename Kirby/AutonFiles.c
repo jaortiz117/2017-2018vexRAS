@@ -130,39 +130,39 @@ void skillsAuton(){
 
   //move towards goal
   move(inToTicks(24), 60);
-  //lift(DOWN);//change to appropiate
+  moveMG(DOWN, 1100);
   move(inToTicks(12), 50);//pick up goal
-  //lift(UP);//change to appropiate
+  moveMG(UP, 3300);
   move(inToTicks(-6), 50);
 
-  //move arm into game loads 3 times
-  for(int i=0; i<2; i++){
-    //clawOpen
-    //leverMove(IN);//change to appropiate
-    wait1Msec(500);
-    //clawClose
-  }
+  // //move arm into game loads 3 times
+  // for(int i=0; i<2; i++){
+  //   //clawOpen
+  //   //leverMove(IN);//change to appropiate
+  //   wait1Msec(500);
+  //   //clawClose
+  // }
 
   // turn around towards corner
-  //encoderRotate(180, 90);//change to appropiate
+  rotate(RIGHT, 180);
   move(inToTicks(48), 70);
-  //lift(DOWN);//change to appropiate
+  moveMG(DOWN, 1100);
   move(inToTicks(-12), 40);//release moving goal
 
   //rotate towards center//needs work
-  //encoderRotate(-45, 60);//change to appropiate
+  rotate(LEFT, 45);//change to appropiate
   //move towards two goals
   move(inToTicks(48), 90);
-  //lift(DOWN);//change to appropiate
-  move(inToTicks(60), 40);
-  //lift(UP);//pickup two goals//change to appropiate
-  move(inToTicks(48), 90);//move towards other corner
+  moveMG(DOWN, 1100);
+  move(inToTicks(40), 40);
+  moveMG(UP, 3300);//pickup goals
+  move(inToTicks(68), 90);//move towards other corner
   move(inToTicks(12), 60);//walk over tube
-  //lift(DOWN);//change to appropiate//change to appropiate
+  moveMG(DOWN, 1100);
   move(inToTicks(-12), 60);
 
   //move to position looking at north blue tile
-  //encoderRotate(45+90, 40);//change to appropiate
+  rotate(RIGHT,45+90);//change to appropiate
 
   //pickup and score blue goal
   move(inToTicks(6*12), 80);

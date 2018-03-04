@@ -5,3 +5,7 @@ lift Potentiometer:
 cone-Lift Potentiometer:
 	max = (3050+2900)/2
 	min = 0
+
+moving goal pot:
+	max = 3300
+	min = 1100
